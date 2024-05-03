@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".welcome_screen">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_290sdp"
+        android:src="@drawable/welcomeimage" />
+
+    <TextView
+        android:id="@+id/s1"
+        style="@style/WordColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
+        android:fontFamily="@font/helveticabold"
+        android:lineHeight="36dp"
+        android:text="Everything you need is in one place"
+        android:textSize="@dimen/_22ssp"
+        tools:targetApi="p" />
+
+    <TextView
+        android:id="@+id/s2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:lineHeight="22dp"
+        android:fontFamily="@font/helvetica"
+        android:textColor="@color/textsmall"
+        android:text="Discover the latest gadgets, accessories, and more, all under one roof.From cutting-edge electronics to must-have tech essentials, find it all here."
+        android:textSize="@dimen/_14ssp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/backicon"
+        android:fontFamily="@font/helveticabold"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reg_btn"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/reg_btn_back"
+        android:fontFamily="@font/helvetica"
+        android:text="Register"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

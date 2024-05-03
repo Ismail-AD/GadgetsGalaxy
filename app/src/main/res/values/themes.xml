@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GadgetsGalaxy" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.GadgetsGalaxy" parent="Base.Theme.GadgetsGalaxy" />
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/projectlogo</item>
+        <item name="postSplashScreenTheme">@style/Theme.GadgetsGalaxy</item>
+
+    </style>
+    <style name="Background">
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="WordColor">
+        <item name="android:textColor">#F0000000</item>
+    </style>
+    <style name="ButtonBack">
+        <item name="android:color">@color/btnColor</item>
+    </style>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcome_screen">
+
+    <fragment
+        android:id="@+id/welcome_screen"
+        android:name="com.appdev.gadgetsgalaxy.welcome_screen"
+        android:label="fragment_welcome_screen"
+        tools:layout="@layout/fragment_welcome_screen" >
+        <action
+            android:id="@+id/action_welcome_screen_to_login_screen"
+            app:destination="@id/login_screen" />
+        <action
+            android:id="@+id/action_welcome_screen_to_signup_screen"
+            app:destination="@id/signup_screen" />
+    </fragment>
+    <fragment
+        android:id="@+id/login_screen"
+        android:name="com.appdev.gadgetsgalaxy.login_screen"
+        android:label="fragment_login_screen"
+        tools:layout="@layout/fragment_login_screen" >
+        <action
+            android:id="@+id/action_login_screen_to_admin_page"
+            app:destination="@id/admin_page" />
+    </fragment>
+    <fragment
+        android:id="@+id/signup_screen"
+        android:name="com.appdev.gadgetsgalaxy.signup_screen"
+        android:label="fragment_signup_screen"
+        tools:layout="@layout/fragment_signup_screen" />
+    <fragment
+        android:id="@+id/admin_page"
+        android:name="com.appdev.gadgetsgalaxy.admin_page"
+        android:label="fragment_admin_page"
+        tools:layout="@layout/fragment_admin_page" />
+</navigation>
