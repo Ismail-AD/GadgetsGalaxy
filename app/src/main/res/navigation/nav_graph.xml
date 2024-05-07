@@ -35,5 +35,39 @@
         android:id="@+id/admin_page"
         android:name="com.appdev.gadgetsgalaxy.admin_page"
         android:label="fragment_admin_page"
-        tools:layout="@layout/fragment_admin_page" />
+        tools:layout="@layout/fragment_admin_page" >
+        <action
+            android:id="@+id/action_admin_page_to_userInfo_screen"
+            app:destination="@id/userInfo_screen" />
+        <action
+            android:id="@+id/action_admin_page_to_categoryInfo"
+            app:destination="@id/categoryInfo" />
+        <action
+            android:id="@+id/action_admin_page_to_product_showcase"
+            app:destination="@id/product_showcase" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfo_screen"
+        android:name="com.appdev.gadgetsgalaxy.userInfo_screen"
+        android:label="fragment_user_info_screen"
+        tools:layout="@layout/fragment_user_info_screen" />
+    <fragment
+        android:id="@+id/categoryInfo"
+        android:name="com.appdev.gadgetsgalaxy.categoryInfo"
+        android:label="fragment_category_info"
+        tools:layout="@layout/fragment_category_info" >
+        <action
+            android:id="@+id/action_categoryInfo_to_categoryIndetail"
+            app:destination="@id/categoryIndetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryIndetail"
+        android:name="com.appdev.gadgetsgalaxy.categoryIndetail"
+        android:label="fragment_category_indetail"
+        tools:layout="@layout/fragment_category_indetail" />
+    <fragment
+        android:id="@+id/product_showcase"
+        android:name="com.appdev.gadgetsgalaxy.product_showcase"
+        android:label="fragment_product_showcase"
+        tools:layout="@layout/fragment_product_showcase" />
 </navigation>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".categoryIndetail">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/imageLayout"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageIndetail"
+            android:layout_width="match_parent"
+            android:transitionName="image_big"
+            android:layout_height="@dimen/_250sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/playstation" />
+
+        <LinearLayout
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/circular_back"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:id="@+id/back_btn"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/baseline_arrow_back_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:background="@drawable/circular_back"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/del_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/baseline_delete_24" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/imageLayout"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/count"
+            style="@style/WordColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneuemedium"
+            android:textStyle="bold"
+            android:text="Playstation"
+            android:textSize="@dimen/_20ssp" />
+        <TextView
+            android:id="@+id/s2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineHeight="22dp"
+            android:fontFamily="@font/helvetica"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:text="Discover the latest gadgets, accessories, and more, all under one roof.From cutting-edge electronics to must-have tech essentials, find it all here."
+            android:textSize="@dimen/_14ssp" />
+        <TextView
+            android:id="@+id/productCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineHeight="22dp"
+            android:fontFamily="@font/helvetica"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:text="This category has 4 products"
+            android:textSize="@dimen/_14ssp" />
+
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_button"
+        android:layout_width="wrap_content"
+        app:tint="@android:color/white"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/btnColor"
+        app:shapeAppearanceOverlay="@style/FloatingActionButtonShape"
+        android:layout_margin="16dp"
+        android:src="@drawable/editrecord" />
+
+
+</RelativeLayout>

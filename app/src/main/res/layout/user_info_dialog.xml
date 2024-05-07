@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="user_data"
+            type="com.appdev.gadgetsgalaxy.data.User_info" />
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        style="@style/BackgroundDialog"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="User Information"
+                android:textSize="@dimen/_16ssp"
+                android:fontFamily="@font/helvetica"
+                style="@style/WordColor" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_3sdp"
+                android:id="@+id/close_btn"
+                android:src="@drawable/baseline_close_24"
+                android:layout_marginBottom="@dimen/_14sdp"
+                style="@style/ComponentsColor"
+                android:layout_gravity="end"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Name"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helveticabold"
+                style="@style/WordColor" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:maxLines="1"
+                android:text="@{user_data.name}"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helvetica"
+                style="@style/WordColor" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Email"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helveticabold"
+                style="@style/WordColor" />
+
+            <TextView
+                android:id="@+id/mail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:maxLines="1"
+                android:text="@{user_data.email}"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helvetica"
+                style="@style/WordColor" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Contact"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helveticabold"
+                style="@style/WordColor" />
+
+            <TextView
+                android:id="@+id/contact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:maxLines="1"
+                android:text="@{user_data.contact}"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helvetica"
+                style="@style/WordColor" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Address"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helveticabold"
+                style="@style/WordColor" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:maxLines="1"
+                android:text="@{user_data.address}"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helvetica"
+                style="@style/WordColor" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cart Items"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helveticabold"
+                style="@style/WordColor" />
+
+            <TextView
+                android:id="@+id/cart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:maxLines="1"
+                android:text="@{String.valueOf(user_data.cart_items)}"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helvetica"
+                style="@style/WordColor" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Items Order"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helveticabold"
+                style="@style/WordColor" />
+
+            <TextView
+                android:id="@+id/order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:maxLines="1"
+                android:text="@{String.valueOf(user_data.ordered_items)}"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/helvetica"
+                style="@style/WordColor" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>
