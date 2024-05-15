@@ -5,4 +5,5 @@
     <color name="ui_element_bck">#F5F2FC</color>
     <color name="btnColor">#19c463</color>
     <color name="textsmall">#6F7478</color>
+    <color name="selected_item_color">#BDE0BF</color>
 </resources>

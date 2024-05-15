@@ -49,4 +49,5 @@ dependencies {
     implementation("com.intuit.sdp:sdp-android:1.1.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.skydoves:powerspinner:1.2.7")
 }

@@ -1,64 +1,116 @@
 package com.appdev.gadgetsgalaxy;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Pair;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link product_showcase#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.appdev.gadgetsgalaxy.data.Category_info;
+import com.appdev.gadgetsgalaxy.data.Product_info;
+import com.appdev.gadgetsgalaxy.databinding.FragmentCategoryInfoBinding;
+import com.appdev.gadgetsgalaxy.databinding.FragmentProductShowcaseBinding;
+import com.appdev.gadgetsgalaxy.recyclerview.Category_Image_Adapter;
+import com.appdev.gadgetsgalaxy.recyclerview.Product_image_adapter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+
 public class product_showcase extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentProductShowcaseBinding productShowcaseBinding;
+    Product_image_adapter product_image_adapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public product_showcase() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment product_showcase.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static product_showcase newInstance(String param1, String param2) {
-        product_showcase fragment = new product_showcase();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    List<Product_info> productInfoList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 0, 1, 23, 4.4f));
+        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 0, 2, 23, 4.4f));
+        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 10000, 3, 23, 4.4f));
+        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 0, 4, 23, 4.4f));
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_showcase, container, false);
+
+        productShowcaseBinding = FragmentProductShowcaseBinding.inflate(inflater, container, false);
+        product_image_adapter = new Product_image_adapter(productInfoList, this::navigateWithInfo);
+        productShowcaseBinding.rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        productShowcaseBinding.rv.setAdapter(product_image_adapter);
+        productShowcaseBinding.backBtn.setOnClickListener(view -> {
+            findNavController(this).popBackStack();
+        });
+        productShowcaseBinding.floatingButton.setOnClickListener(view -> {
+            findNavController(this).navigate(R.id.action_product_showcase_to_product_entry);
+        });
+        productShowcaseBinding.catBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(requireContext(), view,0,0,R.style.PopupTheme);
+                popupMenu.setOnMenuItemClickListener(menuItem -> {
+
+                    String title = Objects.requireNonNull(menuItem.getTitle()).toString();
+                    switch (title) {
+                        case "All products":
+                            // Handle "All products" click
+                            return true;
+                        case "Laptops":
+                            // Handle "Laptops" click
+                            return true;
+                        case "SmartPhones":
+                            // Handle "SmartPhones" click
+                            return true;
+                        case "GameConsoles":
+                            // Handle "GameConsoles" click
+                            return true;
+                        case "Audio":
+                            // Handle "Audio" click
+                            return true;
+                        default:
+                            // Default case
+                            return false;
+                    }
+                });
+                popupMenu.inflate(R.menu.menu_category);
+                popupMenu.show();
+
+            }
+        });
+        return productShowcaseBinding.getRoot();
     }
+
+    private void navigateWithInfo(Pair<Product_info, ImageView> productInfoImageViewPair) {
+    }
+
+
+
+
+
 }

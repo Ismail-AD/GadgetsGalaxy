@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_admin_page_to_product_showcase"
             app:destination="@id/product_showcase" />
+        <action
+            android:id="@+id/action_admin_page_to_pendingOrders"
+            app:destination="@id/pendingOrders" />
     </fragment>
     <fragment
         android:id="@+id/userInfo_screen"
@@ -69,5 +72,19 @@
         android:id="@+id/product_showcase"
         android:name="com.appdev.gadgetsgalaxy.product_showcase"
         android:label="fragment_product_showcase"
-        tools:layout="@layout/fragment_product_showcase" />
+        tools:layout="@layout/fragment_product_showcase" >
+        <action
+            android:id="@+id/action_product_showcase_to_product_entry"
+            app:destination="@id/product_entry" />
+    </fragment>
+    <fragment
+        android:id="@+id/product_entry"
+        android:name="com.appdev.gadgetsgalaxy.product_entry"
+        android:label="fragment_product_entry"
+        tools:layout="@layout/fragment_product_entry" />
+    <fragment
+        android:id="@+id/pendingOrders"
+        android:name="com.appdev.gadgetsgalaxy.pendingOrders"
+        android:label="fragment_pending_orders"
+        tools:layout="@layout/fragment_pending_orders" />
 </navigation>

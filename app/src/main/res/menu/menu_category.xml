@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/allproducts"
+        android:title="All products" />
+    <item
+        android:id="@+id/laptops"
+        android:title="Laptops" />
+    <item
+        android:id="@+id/SmartPhones"
+        android:title="SmartPhones" />
+    <item
+        android:id="@+id/GameConsoles"
+        android:title="GameConsoles" />
+    <item
+        android:id="@+id/Audio"
+        android:title="Audio" />
+</menu>

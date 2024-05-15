@@ -2,12 +2,15 @@ package com.appdev.gadgetsgalaxy.recyclerview;
 
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.appdev.gadgetsgalaxy.R;
 import com.appdev.gadgetsgalaxy.data.Category_info;
 import com.appdev.gadgetsgalaxy.data.Product_info;
 import com.appdev.gadgetsgalaxy.databinding.CategoryLayoutBinding;
@@ -40,9 +43,17 @@ public class Product_image_adapter extends RecyclerView.Adapter<Product_image_ad
     public void onBindViewHolder(@NonNull itemInfoViewHolder holder, int position) {
         Product_info productInfo = productInfoList.get(position);
 
-        // Use a switch statement to handle different titles
         holder.productLayoutBinding.setItemData(productInfo);
         holder.productLayoutBinding.executePendingBindings();
+        if (productInfo.getItem_discounted_price() > 0) {
+            holder.productLayoutBinding.slash.setVisibility(View.VISIBLE);
+            holder.productLayoutBinding.itemPriceDiscounted.setVisibility(View.VISIBLE);
+            holder.productLayoutBinding.itemPrice.setTypeface(ResourcesCompat.getFont(holder.productLayoutBinding.getRoot().getContext(), R.font.helvetica));
+        } else {
+            holder.productLayoutBinding.slash.setVisibility(View.GONE);
+            holder.productLayoutBinding.itemPriceDiscounted.setVisibility(View.GONE);
+            holder.productLayoutBinding.itemPrice.setTypeface(ResourcesCompat.getFont(holder.productLayoutBinding.getRoot().getContext(), R.font.helveticaneuemedium));
+        }
         holder.productLayoutBinding.completeCard.setOnClickListener(view -> {
             passItemInfo.accept(new Pair<>(productInfo, holder.productLayoutBinding.catImage));
         });

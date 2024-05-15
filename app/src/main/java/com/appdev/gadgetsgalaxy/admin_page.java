@@ -65,7 +65,7 @@ public class admin_page extends Fragment {
                 findNavController(this).navigate(R.id.action_admin_page_to_categoryInfo);
                 break;
             case "Products":
-                // Set vector drawable for Title 2
+                findNavController(this).navigate(R.id.action_admin_page_to_product_showcase);
                 break;
             case "Earnings":
                 // Set vector drawable for Title 2

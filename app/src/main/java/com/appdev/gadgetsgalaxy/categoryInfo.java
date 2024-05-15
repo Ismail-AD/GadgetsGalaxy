@@ -79,7 +79,7 @@ public class categoryInfo extends Fragment {
 
     private void navigateWithInfo(Pair<Category_info, ImageView> categoryInfoImageViewPair) {
         FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().addSharedElement(categoryInfoImageViewPair.second,categoryInfoImageViewPair.first.getCatTitle()).build();
-        findNavController(this).navigate(R.id.action_categoryInfo_to_categoryIndetail, null, null, extras);
+        findNavController(this).navigate(R.id.action_categoryInfo_to_categoryIndetail);
     }
 
 }

@@ -11,4 +11,10 @@
     <style name="DiscountWordColor">
         <item name="android:textColor">#8c8c8c</item>
     </style>
+    <style name="hintWordColor">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="search_image">
+        <item name="android:icon">@drawable/nighttheme</item>
+    </style>
 </resources>
