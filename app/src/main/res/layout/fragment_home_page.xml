@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        style="@style/Background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_80sdp"
+        tools:context=".home_page">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Background"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:elevation="10dp">
+
+
+            <TextView
+                android:id="@+id/titleTextView"
+                style="@style/WordColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneueroman"
+                android:paddingStart="@dimen/_5sdp"
+                android:text="GalaxyGadgets"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/them_card_back"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:clickable="true"
+                app:cardCornerRadius="50dp"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:id="@+id/notifaciton"
+                    style="@style/theme_notify_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:foreground="?selectableItemBackground"
+                    android:padding="@dimen/_8sdp" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_content_concpt"
+            style="@style/theme_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Search"
+            app:searchHintIcon="@drawable/no_bk" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/banner_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_content_concpt"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider_home"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_150sdp"
+                app:iss_auto_cycle="true"
+                app:iss_delay="200"
+                app:iss_period="1500" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/titlec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/banner_home"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pricetag"
+                style="@style/WordColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneuemedium"
+                android:text="Categories"
+                android:textSize="@dimen/_17ssp" />
+
+            <TextView
+                android:id="@+id/productprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneuemedium"
+                android:gravity="end"
+                android:text="See all"
+                android:textColor="@color/btnColor"
+                android:textSize="@dimen/_15ssp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titlec"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:paddingTop="@dimen/_3sdp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv"
+            android:nestedScrollingEnabled="false"
+            android:paddingTop="@dimen/_10sdp" />
+
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

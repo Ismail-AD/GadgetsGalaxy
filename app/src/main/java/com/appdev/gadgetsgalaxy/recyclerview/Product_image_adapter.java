@@ -23,9 +23,9 @@ public class Product_image_adapter extends RecyclerView.Adapter<Product_image_ad
 
 
     List<Product_info> productInfoList;
-    final Consumer<Pair<Product_info, ImageView>> passItemInfo;
+    final Consumer<Product_info> passItemInfo;
 
-    public Product_image_adapter(List<Product_info> DataList, Consumer<Pair<Product_info, ImageView>> passItemInfo) {
+    public Product_image_adapter(List<Product_info> DataList, Consumer<Product_info> passItemInfo) {
         this.productInfoList = DataList;
         this.passItemInfo = passItemInfo;
     }
@@ -55,7 +55,7 @@ public class Product_image_adapter extends RecyclerView.Adapter<Product_image_ad
             holder.productLayoutBinding.itemPrice.setTypeface(ResourcesCompat.getFont(holder.productLayoutBinding.getRoot().getContext(), R.font.helveticaneuemedium));
         }
         holder.productLayoutBinding.completeCard.setOnClickListener(view -> {
-            passItemInfo.accept(new Pair<>(productInfo, holder.productLayoutBinding.catImage));
+            passItemInfo.accept(productInfo);
         });
 
     }

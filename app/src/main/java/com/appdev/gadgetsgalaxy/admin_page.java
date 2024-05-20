@@ -38,13 +38,12 @@ public class admin_page extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         adminPageBinding = FragmentAdminPageBinding.inflate(inflater, container, false);
+        panelDataList.clear();
         panelDataList.add(new Admin_panel_data(267, "Customers"));
         panelDataList.add(new Admin_panel_data(267, "Categories"));
         panelDataList.add(new Admin_panel_data(267, "Products"));
         panelDataList.add(new Admin_panel_data(267, "Earnings"));
         panelDataList.add(new Admin_panel_data(267, "Pending Orders"));
-        panelDataList.add(new Admin_panel_data(267, "Orders In Progress"));
-        panelDataList.add(new Admin_panel_data(267, "Orders shipped"));
         panelDataList.add(new Admin_panel_data(267, "Delivered Orders"));
         panelDataList.add(new Admin_panel_data(267, "Cancel Orders"));
         panelDataList.add(new Admin_panel_data(267, "Banners"));
@@ -72,17 +71,7 @@ public class admin_page extends Fragment {
 
                 break;
             case "Pending Orders":
-                // Set vector drawable for Title 2
-
-                break;
-            case "Orders In Progress":
-                // Set vector drawable for Title 2
-
-                break;
-
-            case "Orders shipped":
-                // Set vector drawable for Title 2
-
+                findNavController(this).navigate(R.id.action_admin_page_to_pendingOrders);
                 break;
 
             case "Delivered":
@@ -94,8 +83,7 @@ public class admin_page extends Fragment {
 
                 break;
             case "Banners":
-                // Set vector drawable for Title 2
-
+                findNavController(this).navigate(R.id.action_admin_page_to_banners_admin);
                 break;
             case "Discount":
                 // Set vector drawable for Title 2

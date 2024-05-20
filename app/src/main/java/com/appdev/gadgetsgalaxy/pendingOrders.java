@@ -1,64 +1,76 @@
 package com.appdev.gadgetsgalaxy;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link pendingOrders#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.appdev.gadgetsgalaxy.data.Category_info;
+import com.appdev.gadgetsgalaxy.data.Order_info;
+import com.appdev.gadgetsgalaxy.databinding.FragmentCategoryInfoBinding;
+import com.appdev.gadgetsgalaxy.databinding.FragmentPendingOrdersBinding;
+import com.appdev.gadgetsgalaxy.recyclerview.Category_Image_Adapter;
+import com.appdev.gadgetsgalaxy.recyclerview.Orders_list_adapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 public class pendingOrders extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public pendingOrders() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment pendingOrders.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static pendingOrders newInstance(String param1, String param2) {
-        pendingOrders fragment = new pendingOrders();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    FragmentPendingOrdersBinding pendingOrdersBinding;
+    Orders_list_adapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pending_orders, container, false);
+        pendingOrdersBinding = FragmentPendingOrdersBinding.inflate(inflater, container, false);
+
+        adapter = new Orders_list_adapter(createUsersOrdersMap());
+        pendingOrdersBinding.rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        pendingOrdersBinding.rv.setAdapter(adapter);
+        pendingOrdersBinding.backBtn.setOnClickListener(view -> {
+            findNavController(this).popBackStack();
+        });
+        return pendingOrdersBinding.getRoot();
+    }
+
+    public static Map<String, List<Order_info>> createUsersOrdersMap() {
+        Map<String, List<Order_info>> usersOrders = new HashMap<>();
+
+        // Dummy orders for user 1
+        List<Order_info> ordersUser1 = new ArrayList<>();
+        ordersUser1.add(new Order_info("2024-05-17", 100.0f, "user1", "order1", "image1", "Delivered", "Product 1", 1, 10.0f, "Name 1", "email1@example.com", "123456789"));
+        ordersUser1.add(new Order_info("2024-05-18", 200.0f, "user1", "order1", "image2", "Pending", "Product 2", 2, 10.0f, "Name 1", "email1@example.com", "123456789"));
+        usersOrders.put("order1", ordersUser1);
+
+        // Dummy orders for user 2
+        List<Order_info> ordersUser2 = new ArrayList<>();
+        ordersUser2.add(new Order_info("2024-05-19", 150.0f, "user2", "order3", "image3", "Delivered", "Product 3", 1, 10.0f, "Name 2", "email2@example.com", "123456789"));
+        ordersUser2.add(new Order_info("2024-05-20", 250.0f, "user2", "order3", "image4", "Delivered", "Product 4", 2, 10.0f, "Name 2", "email2@example.com", "123456789"));
+        usersOrders.put("order3", ordersUser2);
+
+        // Dummy orders for user 3
+        List<Order_info> ordersUser3 = new ArrayList<>();
+        ordersUser3.add(new Order_info("2024-05-21", 180.0f, "user3", "order5", "image5", "Pending", "Product 5", 1, 10.0f, "Name 3", "email3@example.com", "123456789"));
+        usersOrders.put("order5", ordersUser3);
+
+        return usersOrders;
     }
 }
+

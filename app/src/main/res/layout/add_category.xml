@@ -40,15 +40,23 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginVertical="@dimen/_8sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:padding="@dimen/_3sdp"
         style="@style/CustomFrameLayout">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/photopick"
-            android:contentDescription="Camera Icon" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="8dp"
+            style="@style/BackgroundTint"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:id="@+id/image"
+                android:src="@drawable/photopick"
+                android:contentDescription="Camera Icon" />
+        </com.google.android.material.card.MaterialCardView>
 
     </FrameLayout>
 

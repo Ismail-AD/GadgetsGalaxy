@@ -3,6 +3,8 @@ package com.appdev.gadgetsgalaxy.data;
 public class Order_info {
     String creationOrDeliveryDate;
     float totalPrice;
+    String userId;
+    String orderId;
     String imageUrl;
     String status;
     String productName;
@@ -93,9 +95,28 @@ public class Order_info {
     }
 
     public Order_info(){}
-    public Order_info(String creationOrDeliveryDate, float totalPrice, String imageUrl, String status, String productName, int quantity, float delivery, String name, String email, String contact) {
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public Order_info(String creationOrDeliveryDate, float totalPrice, String userId, String orderId, String imageUrl, String status, String productName, int quantity, float delivery, String name, String email, String contact) {
         this.creationOrDeliveryDate = creationOrDeliveryDate;
         this.totalPrice = totalPrice;
+        this.userId = userId;
+        this.orderId = orderId;
         this.imageUrl = imageUrl;
         this.status = status;
         this.productName = productName;

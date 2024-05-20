@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.appdev.gadgetsgalaxy.data.User_info;
 import com.appdev.gadgetsgalaxy.databinding.FragmentUserInfoScreenBinding;
@@ -27,6 +29,7 @@ public class userInfo_screen extends Fragment {
     Customer_info_adapter customerInfoAdapter;
     private UserInfoDialogBinding dialogBinding;
     List<User_info> userInfoList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +39,15 @@ public class userInfo_screen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        screenBinding = FragmentUserInfoScreenBinding.inflate(inflater,container,false);
-        userInfoList.add(new User_info(0,0,"1","John kelvin","okjohnk@gmail.com","+01921929","nobody address",""));
-        userInfoList.add(new User_info(0,0,"1","John kelvin","okjohnk@gmail.com","+01921929","nobody address",""));
-        userInfoList.add(new User_info(0,0,"1","John kelvin","okjohnk@gmail.com","+01921929","nobody address",""));
-        userInfoList.add(new User_info(0,0,"1","John kelvin","okjohnk@gmail.com","+01921929","nobody address",""));
-        userInfoList.add(new User_info(0,0,"1","John kelvin","okjohnk@gmail.com","+01921929","nobody address",""));
-        userInfoList.add(new User_info(0,0,"1","John kelvin","okjohnk@gmail.com","+01921929","nobody address",""));
-        userInfoList.add(new User_info(0,0,"1","John kelvin","okjohnk@gmail.com","+01921929","nobody address",""));
-        customerInfoAdapter = new Customer_info_adapter(userInfoList,this::showDialogWithInfo);
+        screenBinding = FragmentUserInfoScreenBinding.inflate(inflater, container, false);
+        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+        customerInfoAdapter = new Customer_info_adapter(userInfoList, this::showDialogWithInfo);
         screenBinding.rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         screenBinding.rv.setAdapter(customerInfoAdapter);
         screenBinding.backBtn.setOnClickListener(view -> {
@@ -52,11 +55,12 @@ public class userInfo_screen extends Fragment {
         });
         return screenBinding.getRoot();
     }
-    public void showDialogWithInfo(User_info userInfo){
+
+    public void showDialogWithInfo(User_info userInfo) {
         dialogBinding = UserInfoDialogBinding.inflate(getLayoutInflater());
         dialogBinding.setUserData(userInfo);
         dialogBinding.executePendingBindings();
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(),R.style.CurvedCornersDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.CurvedCornersDialog);
         builder.setView(dialogBinding.getRoot());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -64,7 +68,7 @@ public class userInfo_screen extends Fragment {
         dialogBinding.closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              alertDialog.dismiss();
+                alertDialog.dismiss();
             }
         });
     }

@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:gravity="end"
                     android:layout_height="wrap_content"
-                    android:text="Macbook pro"
+                    android:text="@{String.valueOf(order_data.creationOrDeliveryDate)}"
                     android:fontFamily="@font/helvetica"
                     style="@style/WordColor"
                     android:textSize="@dimen/_14ssp" />
@@ -79,7 +79,7 @@
                         android:id="@+id/count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pending"
+                        android:text="@{order_data.status}"
                         android:fontFamily="@font/helveticabold"
                         style="@style/WordColor"
                         android:textSize="@dimen/_16ssp" />
@@ -88,7 +88,7 @@
                         android:id="@+id/count_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Macbook pro"
+                        android:text="@{order_data.name}"
                         android:fontFamily="@font/helvetica"
                         style="@style/WordColor"
                         android:textSize="@dimen/_14ssp" />
@@ -105,12 +105,12 @@
                             style="@style/WordColor"
                             android:textSize="@dimen/_14ssp" />
                         <TextView
-                            android:id="@+id/quantity"
+                            android:id="@+id/quantityInTotal"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="end"
                             android:layout_height="wrap_content"
-                            android:text="4"
+                            android:text="@{String.valueOf(order_data.quantity)}"
                             android:fontFamily="@font/helvetica"
                             style="@style/WordColor"
                             android:textSize="@dimen/_14ssp" />
@@ -133,7 +133,7 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:layout_height="wrap_content"
-                            android:text="$0.0"
+                            android:text='@{"Rs: " + String.valueOf(order_data.totalPrice)}'
                             android:fontFamily="@font/helvetica"
                             style="@style/WordColor"
                             android:textSize="@dimen/_14ssp" />
@@ -145,9 +145,10 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_gravity="center"
+                android:paddingVertical="@dimen/_8sdp"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -172,14 +173,15 @@
                     android:layout_gravity="end"
                     android:background="@drawable/backicon"
                     android:fontFamily="@font/helvetica"
-                    android:text="Accpet"
+                    android:text="Send"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_11ssp"
                     android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
+
+
 </layout>
+

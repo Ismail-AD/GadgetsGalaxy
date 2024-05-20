@@ -50,4 +50,9 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.github.skydoves:powerspinner:1.2.7")
+    implementation("com.airbnb.android:lottie:5.2.0")
+    implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
 }
+
+
+//url = uri("https://oss.sonatype.org/content/repositories/snapshots/")

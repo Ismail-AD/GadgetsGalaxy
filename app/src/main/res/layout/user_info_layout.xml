@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:id="@+id/completeCard"
         android:clickable="true"
+        android:foreground="?selectableItemBackground"
         android:layout_marginHorizontal="@dimen/_18sdp"
         android:layout_marginVertical="@dimen/_5sdp"
         app:cardCornerRadius="10dp"

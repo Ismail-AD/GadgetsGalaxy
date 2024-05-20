@@ -100,17 +100,13 @@ public class product_showcase extends Fragment {
                 });
                 popupMenu.inflate(R.menu.menu_category);
                 popupMenu.show();
-
             }
         });
         return productShowcaseBinding.getRoot();
     }
 
-    private void navigateWithInfo(Pair<Product_info, ImageView> productInfoImageViewPair) {
+    private void navigateWithInfo(Product_info productInfo) {
+        findNavController(this).navigate(R.id.action_product_showcase_to_product_in_detail);
     }
-
-
-
-
 
 }

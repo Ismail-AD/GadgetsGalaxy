@@ -25,6 +25,10 @@
         <action
             android:id="@+id/action_login_screen_to_admin_page"
             app:destination="@id/admin_page" />
+        <action
+            android:id="@+id/action_login_screen_to_home_page"
+            app:destination="@id/home_page" />
+
     </fragment>
     <fragment
         android:id="@+id/signup_screen"
@@ -48,6 +52,9 @@
         <action
             android:id="@+id/action_admin_page_to_pendingOrders"
             app:destination="@id/pendingOrders" />
+        <action
+            android:id="@+id/action_admin_page_to_banners_admin"
+            app:destination="@id/banners_admin" />
     </fragment>
     <fragment
         android:id="@+id/userInfo_screen"
@@ -76,6 +83,9 @@
         <action
             android:id="@+id/action_product_showcase_to_product_entry"
             app:destination="@id/product_entry" />
+        <action
+            android:id="@+id/action_product_showcase_to_product_in_detail"
+            app:destination="@id/product_in_detail" />
     </fragment>
     <fragment
         android:id="@+id/product_entry"
@@ -87,4 +97,24 @@
         android:name="com.appdev.gadgetsgalaxy.pendingOrders"
         android:label="fragment_pending_orders"
         tools:layout="@layout/fragment_pending_orders" />
+    <fragment
+        android:id="@+id/product_in_detail"
+        android:name="com.appdev.gadgetsgalaxy.product_in_detail"
+        android:label="fragment_product_in_detail"
+        tools:layout="@layout/fragment_product_in_detail" >
+        <action
+            android:id="@+id/action_product_in_detail_to_product_entry"
+            app:destination="@id/product_entry" />
+    </fragment>
+    <fragment
+        android:id="@+id/banners_admin"
+        android:name="com.appdev.gadgetsgalaxy.Banners_admin"
+        android:label="fragment_banners_admin"
+        tools:layout="@layout/fragment_banners_admin" />
+
+    <fragment
+        android:id="@+id/home_page"
+        android:name="com.appdev.gadgetsgalaxy.home_page"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" />
 </navigation>

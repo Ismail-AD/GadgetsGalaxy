@@ -11,6 +11,10 @@
         <item name="android:colorBackground">@color/white</item>
     </style>
 
+
+
+
+
     <style name="Theme.GadgetsGalaxy" parent="Base.Theme.GadgetsGalaxy" />
 
     <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
@@ -39,15 +43,25 @@
     </style>
 
 
-    <style name="search_image">
-        <item name="android:searchIcon">@drawable/daythem</item>
+
+
+
+    <style name="add_btn">
+        <item name="android:src">@drawable/add_btn_day</item>
     </style>
+
     <style name="checkBoxTint">
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Background">
         <item name="android:background">@color/white</item>
+    </style>
+
+
+    <style name="BackgroundTint">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="BackgroundDialog">
@@ -60,12 +74,36 @@
         <item name="cardBackgroundColor">@color/ui_element_bck</item>
     </style>
 
+    <style name="them_card_back">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="theme_search_view">
+        <item name="searchIcon">@drawable/srch_day</item>
+        <item name="android:background">@drawable/srchview_back</item>
+    </style>
+
+    <style name="theme_notify_image">
+        <item name="android:src">@drawable/notify</item>
+    </style>
+
+
+    <style name="bottom_menu">
+        <item name="menu">@menu/bottom_menu</item>
+    </style>
+
+
     <style name="ComponentsColor">
         <item name="android:tint">#000000</item>
     </style>
 
     <style name="WordColor">
         <item name="android:textColor">#F0000000</item>
+    </style>
+
+    <style name="Chip_theme">
+
+        <item name="strokeColor">#F0000000</item>
     </style>
 
     <style name="hintSpinnerWordColor">

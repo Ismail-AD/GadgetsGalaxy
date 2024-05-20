@@ -13,13 +13,15 @@ import android.view.ViewGroup;
 
 import com.appdev.gadgetsgalaxy.databinding.FragmentLoginScreenBinding;
 
+import java.util.Objects;
+
 public class login_screen extends Fragment {
 
     private FragmentLoginScreenBinding loginScreenBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        findNavController(this).navigate(R.id.action_login_screen_to_home_page);
     }
 
     @Override

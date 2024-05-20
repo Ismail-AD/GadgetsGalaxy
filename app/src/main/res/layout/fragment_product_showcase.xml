@@ -62,6 +62,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/srchview_back"
             android:paddingEnd="@dimen/_8sdp"
+            app:queryBackground="@android:color/transparent"
             app:iconifiedByDefault="false"
             app:queryHint="Search"
             app:searchHintIcon="@drawable/no_bk"

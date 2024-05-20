@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".product_in_detail">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/_35sdp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:id="@+id/imageLayout"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/imageIndetail"
+                    android:layout_width="match_parent"
+                    android:transitionName="image_big"
+                    android:layout_height="@dimen/_240sdp"
+                    android:src="@drawable/iphonr" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/circular_back"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="match_parent"
+                        android:id="@+id/back_btn"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:padding="@dimen/_3sdp"
+                        android:src="@drawable/baseline_arrow_back_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:background="@drawable/circular_back"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/del_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:padding="@dimen/_3sdp"
+                        android:src="@drawable/baseline_delete_24" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/pname"
+                    style="@style/WordColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textStyle="bold"
+                    android:text="iMac 2023"
+                    android:textSize="@dimen/_20ssp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Category"
+                        android:textSize="@dimen/_14ssp"
+                        android:fontFamily="@font/helveticabold"
+                        style="@style/WordColor" />
+
+                    <TextView
+                        android:id="@+id/cname"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.7"
+                        android:maxLines="1"
+                        android:text="iMac"
+                        android:textSize="@dimen/_14ssp"
+                        android:fontFamily="@font/helvetica"
+                        style="@style/WordColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Quantity"
+                        android:textSize="@dimen/_14ssp"
+                        android:fontFamily="@font/helveticabold"
+                        style="@style/WordColor" />
+
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.7"
+                        android:maxLines="1"
+                        android:text="3"
+                        android:textSize="@dimen/_14ssp"
+                        android:fontFamily="@font/helvetica"
+                        style="@style/WordColor" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineHeight="22dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="Discover the latest gadgets, accessories, and more, all under one roof.From cutting-edge electronics to must-have tech essentials, find it all here."
+                    android:textSize="@dimen/_14ssp" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    app:dividerColor="#2F6CC8D1"
+                    android:id="@+id/slash"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_height="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/deliverytag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product created at"
+                        android:fontFamily="@font/helvetica"
+                        style="@style/WordColor"
+                        android:textSize="@dimen/_14ssp" />
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:gravity="end"
+                        android:layout_height="wrap_content"
+                        android:text="12 May 2024"
+                        android:fontFamily="@font/helvetica"
+                        style="@style/WordColor"
+                        android:textSize="@dimen/_14ssp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/pricetag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        style="@style/WordColor"
+                        android:fontFamily="@font/helveticaneuemedium"
+                        android:textSize="@dimen/_14ssp" />
+                    <TextView
+                        android:id="@+id/productprice"
+                        android:layout_width="match_parent"
+                        android:gravity="end"
+                        android:layout_height="wrap_content"
+                        android:text="Rs 370000"
+                        android:fontFamily="@font/helveticaneuemedium"
+                        style="@style/WordColor"
+                        android:textSize="@dimen/_17ssp" />
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    app:dividerColor="#2F6CC8D1"
+                    android:id="@+id/slash_2"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_height="2dp" />
+
+                <TextView
+                    android:id="@+id/review"
+                    style="@style/WordColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:text="Rating and Reviews"
+                    android:textSize="@dimen/_18ssp" />
+
+                <ImageView
+                    android:id="@+id/imager"
+                    android:layout_width="match_parent"
+                    android:transitionName="image_big"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_height="@dimen/_240sdp"
+                    android:src="@drawable/no_review" />
+                <TextView
+                    android:id="@+id/reivewname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="There is no review for this product"
+                    android:textSize="@dimen/_14ssp"
+                    android:fontFamily="@font/helvetica"
+                    style="@style/WordColor" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_button"
+        android:layout_width="wrap_content"
+        app:tint="@android:color/white"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/btnColor"
+        app:shapeAppearanceOverlay="@style/FloatingActionButtonShape"
+        android:layout_margin="16dp"
+        android:src="@drawable/editrecord" />
+</RelativeLayout>

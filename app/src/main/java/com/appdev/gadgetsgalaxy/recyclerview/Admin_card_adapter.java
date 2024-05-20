@@ -16,7 +16,6 @@ import java.util.function.Consumer;
 
 public class Admin_card_adapter extends RecyclerView.Adapter<Admin_card_adapter.adminViewHolder> {
     int[] colorArray = {
-            Color.parseColor("#FFFFFFFF"),   // White
             Color.parseColor("#FFFF5733"),   // Orange
             Color.parseColor("#FFC70039"),   // Red
             Color.parseColor("#FF900C3F"),   // Dark Pink
@@ -63,65 +62,54 @@ public class Admin_card_adapter extends RecyclerView.Adapter<Admin_card_adapter.
             case "Customers":
                 // Set vector drawable for Title 1
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.customers);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[0]);
                 break;
             case "Categories":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.categories);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[1]);
                 break;
             case "Products":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.products);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[2]);
                 break;
             case "Earnings":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.earning);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[3]);
                 break;
             case "Pending Orders":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.pending);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
-                break;
-            case "Orders In Progress":
-                // Set vector drawable for Title 2
-                holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.progress);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
-                break;
-
-            case "Orders shipped":
-                // Set vector drawable for Title 2
-                holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.shipped);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[4]);
                 break;
 
             case "Delivered":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.delivered_orders);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[5]);
                 break;
             case "Cancel Orders":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.cancel);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[6]);
                 break;
             case "Banners":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.banners);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[7]);
                 break;
             case "Discount":
                 // Set vector drawable for Title 2
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.discount);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position + 1 % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[8]);
                 break;
 
             default:
                 // Set default vector drawable for other titles
                 holder.adminElementLayoutBinding.iconImage.setImageResource(R.drawable.customers);
-                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[position % colorArray.length]);
+                holder.adminElementLayoutBinding.iconBack.setBackgroundColor(colorArray[5]);
                 break;
         }
     }

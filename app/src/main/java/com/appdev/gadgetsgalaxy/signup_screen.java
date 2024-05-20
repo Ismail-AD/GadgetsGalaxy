@@ -1,5 +1,7 @@
 package com.appdev.gadgetsgalaxy;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.appdev.gadgetsgalaxy.databinding.FragmentSignupScreenBinding;
+
 public class signup_screen extends Fragment {
+
+    FragmentSignupScreenBinding screenBinding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,7 +25,11 @@ public class signup_screen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup_screen, container, false);
+        screenBinding = FragmentSignupScreenBinding.inflate(inflater,container,false);
+        screenBinding.registerBtn.setOnClickListener(v->{
+
+        });
+
+        return screenBinding.getRoot();
     }
 }
