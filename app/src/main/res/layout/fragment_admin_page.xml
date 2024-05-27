@@ -32,28 +32,35 @@
             android:layout_gravity="end|center_vertical"
             android:layout_height="match_parent">
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
                 app:cardCornerRadius="50dp"
+                android:id="@+id/profilecard"
+                android:foreground="?selectableItemBackground"
                 app:strokeWidth="1dp">
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:id="@+id/paymentlogo"
+                    android:id="@+id/profile"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/projectlogo"/>
+                    android:src="@drawable/profileimageph"/>
             </com.google.android.material.card.MaterialCardView>
+            <ProgressBar
+                android:layout_width="@dimen/_25sdp"
+                android:id="@+id/pg"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:indeterminate="true"
+                android:progressTint="@color/btnColor" />
             <TextView
                 android:id="@+id/admin_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ali Asad"
+                android:text=""
                 android:layout_marginStart="@dimen/_10sdp"
                 android:fontFamily="@font/helveticaneueroman"
                 android:textStyle="bold"
                 style="@style/WordColor"
-                android:maxEms="10"
-                android:ellipsize="end"
                 android:textSize="@dimen/_16ssp" />
         </LinearLayout>
 

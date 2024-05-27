@@ -1,13 +1,9 @@
 package com.appdev.gadgetsgalaxy.recyclerview;
 
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appdev.gadgetsgalaxy.data.Category_info;
@@ -20,9 +16,9 @@ public class Category_Image_Adapter extends RecyclerView.Adapter<Category_Image_
 
 
     List<Category_info> userInfoList;
-    final Consumer<Pair<Category_info, ImageView>> passUserInfo;
+    final Consumer<Category_info> passUserInfo;
 
-    public Category_Image_Adapter(List<Category_info> DataList, Consumer<Pair<Category_info, ImageView>> passUserInfo) {
+    public Category_Image_Adapter(List<Category_info> DataList, Consumer<Category_info> passUserInfo) {
         this.userInfoList = DataList;
         this.passUserInfo = passUserInfo;
     }
@@ -43,9 +39,8 @@ public class Category_Image_Adapter extends RecyclerView.Adapter<Category_Image_
         // Use a switch statement to handle different titles
         holder.categoryLayoutBinding.setCategoryData(categoryInfo);
         holder.categoryLayoutBinding.executePendingBindings();
-        holder.categoryLayoutBinding.catImage.setTransitionName(categoryInfo.getCatTitle());
         holder.categoryLayoutBinding.completeCard.setOnClickListener(view -> {
-            passUserInfo.accept(new Pair<>(categoryInfo, holder.categoryLayoutBinding.catImage));
+            passUserInfo.accept(categoryInfo);
         });
 
     }

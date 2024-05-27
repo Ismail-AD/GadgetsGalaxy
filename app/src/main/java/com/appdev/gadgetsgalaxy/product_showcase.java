@@ -2,36 +2,26 @@ package com.appdev.gadgetsgalaxy;
 
 import static androidx.navigation.fragment.FragmentKt.findNavController;
 
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuHost;
-import androidx.core.view.MenuProvider;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.GridLayoutManager;
-
-import android.util.Pair;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.appdev.gadgetsgalaxy.data.Category_info;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.appdev.gadgetsgalaxy.data.Product_info;
-import com.appdev.gadgetsgalaxy.databinding.FragmentCategoryInfoBinding;
 import com.appdev.gadgetsgalaxy.databinding.FragmentProductShowcaseBinding;
-import com.appdev.gadgetsgalaxy.recyclerview.Category_Image_Adapter;
 import com.appdev.gadgetsgalaxy.recyclerview.Product_image_adapter;
+import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +39,6 @@ public class product_showcase extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 0, 1, 23, 4.4f));
-        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 0, 2, 23, 4.4f));
-        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 10000, 3, 23, 4.4f));
-        productInfoList.add(new Product_info("Iphone 15 pro max", "", 12999, 0, 4, 23, 4.4f));
     }
 
 
@@ -68,12 +54,13 @@ public class product_showcase extends Fragment {
             findNavController(this).popBackStack();
         });
         productShowcaseBinding.floatingButton.setOnClickListener(view -> {
-            findNavController(this).navigate(R.id.action_product_showcase_to_product_entry);
+            NavDirections action = product_showcaseDirections.actionProductShowcaseToProductEntry(null);
+            findNavController(this).navigate(action);
         });
         productShowcaseBinding.catBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(requireContext(), view,0,0,R.style.PopupTheme);
+                PopupMenu popupMenu = new PopupMenu(requireContext(), view, 0, 0, R.style.PopupTheme);
                 popupMenu.setOnMenuItemClickListener(menuItem -> {
 
                     String title = Objects.requireNonNull(menuItem.getTitle()).toString();
@@ -105,8 +92,38 @@ public class product_showcase extends Fragment {
         return productShowcaseBinding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        FirebaseUtil.getFirebaseDatabase().getReference().child("Products").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                productInfoList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Product_info product = snapshot.getValue(Product_info.class);
+                    if (product != null) {
+                        productInfoList.add(product);
+                    }
+                }
+                changeVisibility();
+                product_image_adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void changeVisibility() {
+        productShowcaseBinding.rv.setVisibility(View.VISIBLE);
+        productShowcaseBinding.progres.setVisibility(View.GONE);
+    }
+
     private void navigateWithInfo(Product_info productInfo) {
-        findNavController(this).navigate(R.id.action_product_showcase_to_product_in_detail);
+        NavDirections action = product_showcaseDirections.actionProductShowcaseToProductInDetail(productInfo);
+        findNavController(this).navigate(action);
     }
 
 }

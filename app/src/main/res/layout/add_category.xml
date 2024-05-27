@@ -106,19 +106,34 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login_btn"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/_18sdp"
-        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_gravity="center"
-        android:background="@drawable/backicon"
-        android:fontFamily="@font/helveticabold"
-        android:text="Create Category"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/savecatbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:background="@drawable/backicon"
+            android:fontFamily="@font/helveticabold"
+            android:text="Create Category"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:id="@+id/pg"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            android:indeterminateTint="@color/btnColor"
+            android:layout_marginTop="@dimen/_10sdp" />
+    </RelativeLayout>
 
 </LinearLayout>

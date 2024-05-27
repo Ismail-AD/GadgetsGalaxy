@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/Background"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         style="@style/Background"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/_80sdp"
+        android:paddingBottom="@dimen/_90sdp"
         tools:context=".home_page">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_main"
             style="@style/Background"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentTop="true"
             android:elevation="10dp">
-
 
             <TextView
                 android:id="@+id/titleTextView"
@@ -51,18 +51,15 @@
                     android:foreground="?selectableItemBackground"
                     android:padding="@dimen/_8sdp" />
             </com.google.android.material.card.MaterialCardView>
-
-
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_content_concpt"
             style="@style/theme_search_view"
+            android:layout_marginTop="@dimen/_3sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
             android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_5sdp"
             android:paddingEnd="@dimen/_8sdp"
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
@@ -74,9 +71,8 @@
             android:id="@+id/banner_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/search_content_concpt"
             android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_14sdp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp">
 
@@ -90,51 +86,61 @@
 
         </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/titlec"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/banner_home"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/pricetag"
-                style="@style/WordColor"
+        <TextView
+            android:id="@+id/cat_title"
+            style="@style/WordColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginVertical="@dimen/_14sdp"
+            android:fontFamily="@font/helveticaneuemedium"
+            android:text="Categories"
+            android:textSize="@dimen/_17ssp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:id="@+id/progresCat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/helveticaneuemedium"
-                android:text="Categories"
-                android:textSize="@dimen/_17ssp" />
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/btnColor"
+                android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/productprice"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:visibility="gone"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progres"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/helveticaneuemedium"
-                android:gravity="end"
-                android:text="See all"
-                android:textColor="@color/btnColor"
-                android:textSize="@dimen/_15ssp" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/titlec"
-            android:layout_marginHorizontal="@dimen/_14sdp"
-            android:paddingTop="@dimen/_3sdp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvProducts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rv"
-            android:nestedScrollingEnabled="false"
-            android:paddingTop="@dimen/_10sdp" />
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:indeterminateTint="@color/btnColor"
+                android:visibility="visible" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProducts"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingTop="@dimen/_10sdp" />
+        </RelativeLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

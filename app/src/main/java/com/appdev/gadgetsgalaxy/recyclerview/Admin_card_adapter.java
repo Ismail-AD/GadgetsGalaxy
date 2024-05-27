@@ -3,12 +3,13 @@ package com.appdev.gadgetsgalaxy.recyclerview;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appdev.gadgetsgalaxy.data.Admin_panel_data;
 import com.appdev.gadgetsgalaxy.R;
+import com.appdev.gadgetsgalaxy.data.Admin_panel_data;
 import com.appdev.gadgetsgalaxy.databinding.AdminElementLayoutBinding;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class Admin_card_adapter extends RecyclerView.Adapter<Admin_card_adapter.
         // Use a switch statement to handle different titles
         holder.adminElementLayoutBinding.setElementData(panelData);
         holder.adminElementLayoutBinding.executePendingBindings();
+        holder.adminElementLayoutBinding.completeCard.startAnimation(AnimationUtils.loadAnimation(holder.adminElementLayoutBinding.getRoot().getContext(), R.anim.recycler_view_anim_single));
         holder.adminElementLayoutBinding.completeCard.setOnClickListener((view) -> {
             if (onAdminCardClickListener != null) {
                 onAdminCardClickListener.accept(title);

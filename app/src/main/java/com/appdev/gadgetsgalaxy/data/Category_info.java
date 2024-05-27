@@ -1,6 +1,9 @@
 package com.appdev.gadgetsgalaxy.data;
 
-public class Category_info {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Category_info implements Parcelable {
 
     private String catTitle;
     private String imageUrl;
@@ -15,6 +18,36 @@ public class Category_info {
 
 
     private String catDescription;
+
+    protected Category_info(Parcel in) {
+        catTitle = in.readString();
+        imageUrl = in.readString();
+        catDescription = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(catTitle);
+        dest.writeString(imageUrl);
+        dest.writeString(catDescription);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Category_info> CREATOR = new Creator<Category_info>() {
+        @Override
+        public Category_info createFromParcel(Parcel in) {
+            return new Category_info(in);
+        }
+
+        @Override
+        public Category_info[] newArray(int size) {
+            return new Category_info[size];
+        }
+    };
 
     public String getCatTitle() {
         return catTitle;

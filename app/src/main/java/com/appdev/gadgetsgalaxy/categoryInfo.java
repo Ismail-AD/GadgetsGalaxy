@@ -2,33 +2,33 @@ package com.appdev.gadgetsgalaxy;
 
 import static androidx.navigation.fragment.FragmentKt.findNavController;
 
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavOptions;
-import androidx.navigation.fragment.FragmentNavigator;
-import androidx.navigation.fragment.FragmentNavigatorExtrasKt;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.appdev.gadgetsgalaxy.data.Category_info;
-import com.appdev.gadgetsgalaxy.data.User_info;
 import com.appdev.gadgetsgalaxy.databinding.AddCategoryBinding;
 import com.appdev.gadgetsgalaxy.databinding.FragmentCategoryInfoBinding;
-import com.appdev.gadgetsgalaxy.databinding.UserInfoDialogBinding;
 import com.appdev.gadgetsgalaxy.recyclerview.Category_Image_Adapter;
-import com.appdev.gadgetsgalaxy.recyclerview.Customer_info_adapter;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,20 +42,35 @@ public class categoryInfo extends Fragment {
     List<Category_info> categoryInfoList = new ArrayList<>();
     AddCategoryBinding addCategoryBinding;
     BottomSheetDialog bottomSheetDialog;
+    private ActivityResultLauncher<String> getContentLauncher;
+    Uri imageUri;
+    ValueEventListener categoryListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        categoryInfoList.add(new Category_info("PlayStations", "", "NothingNew"));
-        categoryInfoList.add(new Category_info("Mobile Phones", "", "NothingNew"));
-        categoryInfoList.add(new Category_info("Accessories", "", "NothingNew"));
-        categoryInfoList.add(new Category_info("Laptops", "", "NothingNew"));
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         categoryInfoBinding = FragmentCategoryInfoBinding.inflate(inflater, container, false);
+
+
+        getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        imageUri = uri;
+                        Glide.with(requireContext()).load(uri).into(addCategoryBinding.image);
+                        ViewGroup.LayoutParams params = addCategoryBinding.image.getLayoutParams();
+                        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        addCategoryBinding.image.setLayoutParams(params);
+                    } else {
+                        Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         categoryImageAdapter = new Category_Image_Adapter(categoryInfoList, this::navigateWithInfo);
         categoryInfoBinding.rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -68,6 +83,74 @@ public class categoryInfo extends Fragment {
                     requireContext());
             addCategoryBinding = AddCategoryBinding.inflate(getLayoutInflater());
             addCategoryBinding.closeBottomSheet.setOnClickListener(view1 -> bottomSheetDialog.dismiss());
+            addCategoryBinding.imageSelectionBtn.setOnClickListener(v -> {
+                getContentLauncher.launch("image/*");
+            });
+
+            addCategoryBinding.savecatbtn.setOnClickListener(v -> {
+                addCategoryBinding.pg.setVisibility(View.VISIBLE);
+                addCategoryBinding.savecatbtn.setVisibility(View.INVISIBLE);
+                if (imageUri != null) {
+                    if (addCategoryBinding.titlefield.getText().toString().trim().isEmpty() || addCategoryBinding.descData.getText().toString().trim().isEmpty()) {
+                        Toast.makeText(requireContext(), "Fill the missing fields !", Toast.LENGTH_SHORT).show();
+                        addCategoryBinding.pg.setVisibility(View.INVISIBLE);
+                        addCategoryBinding.savecatbtn.setVisibility(View.VISIBLE);
+                    } else {
+                        String categoryName = addCategoryBinding.titlefield.getText().toString();
+                        String categoryDescription = addCategoryBinding.descData.getText().toString();
+
+                        FirebaseUtil.getFirebaseDatabase().getReference().child("Categories").child(categoryName)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            // Category already exists
+                                            Toast.makeText(requireContext(), "Category already exists!", Toast.LENGTH_SHORT).show();
+                                            addCategoryBinding.pg.setVisibility(View.INVISIBLE);
+                                            addCategoryBinding.savecatbtn.setVisibility(View.VISIBLE);
+                                        } else {
+                                            // Category does not exist, proceed to create it
+                                            StorageReference imageRef = FirebaseUtil.getStorageReference().child(System.currentTimeMillis() + ".jpg");
+                                            imageRef.putFile(imageUri)
+                                                    .addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                                        String downloadUrl = uri.toString();
+                                                        Category_info categoryInfo = new Category_info(categoryName, downloadUrl, categoryDescription);
+                                                        FirebaseUtil.getFirebaseDatabase().getReference().child("Categories").child(categoryName).setValue(categoryInfo)
+                                                                .addOnSuccessListener(aVoid -> {
+                                                                    Toast.makeText(requireContext(), "Category created successfully", Toast.LENGTH_SHORT).show();
+                                                                    addCategoryBinding.pg.setVisibility(View.INVISIBLE);
+                                                                    bottomSheetDialog.dismiss();
+                                                                })
+                                                                .addOnFailureListener(e -> {
+                                                                    Toast.makeText(requireContext(), "Failed to create Category", Toast.LENGTH_SHORT).show();
+                                                                    addCategoryBinding.pg.setVisibility(View.INVISIBLE);
+                                                                    addCategoryBinding.savecatbtn.setVisibility(View.VISIBLE);
+                                                                });
+                                                    }))
+                                                    .addOnFailureListener(e -> {
+                                                        Toast.makeText(requireContext(), "Failed to upload image to storage", Toast.LENGTH_SHORT).show();
+                                                        addCategoryBinding.pg.setVisibility(View.INVISIBLE);
+                                                        addCategoryBinding.savecatbtn.setVisibility(View.VISIBLE);
+                                                    });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Toast.makeText(requireContext(), "Error checking category existence", Toast.LENGTH_SHORT).show();
+                                        addCategoryBinding.pg.setVisibility(View.INVISIBLE);
+                                        addCategoryBinding.savecatbtn.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show();
+                    addCategoryBinding.pg.setVisibility(View.INVISIBLE);
+                    addCategoryBinding.savecatbtn.setVisibility(View.VISIBLE);
+
+                }
+            });
+
             bottomSheetDialog.setContentView(addCategoryBinding.getRoot());
             Objects.requireNonNull(bottomSheetDialog.getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             bottomSheetDialog.setCancelable(false);
@@ -77,9 +160,52 @@ public class categoryInfo extends Fragment {
         return categoryInfoBinding.getRoot();
     }
 
-    private void navigateWithInfo(Pair<Category_info, ImageView> categoryInfoImageViewPair) {
-        FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().addSharedElement(categoryInfoImageViewPair.second,categoryInfoImageViewPair.first.getCatTitle()).build();
-        findNavController(this).navigate(R.id.action_categoryInfo_to_categoryIndetail);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Add a ValueEventListener to listen for changes in the "Categories" node
+        ValueEventListener categoryListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                categoryInfoList.clear(); // Clear the list to avoid duplicates
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Category_info categoryInfo = dataSnapshot.getValue(Category_info.class);
+                    categoryInfoList.add(categoryInfo);
+                }
+                categoryImageAdapter.notifyDataSetChanged(); // Notify the adapter that the data has changed
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // Attach the ValueEventListener to the "Categories" node
+        FirebaseUtil.getFirebaseDatabase().getReference()
+                .child("Categories")
+                .addValueEventListener(categoryListener);
+
+        // Store the listener in a member variable to remove it later
+        this.categoryListener = categoryListener;
+    }
+
+    private void navigateWithInfo(Category_info categoryInfo) {
+        NavDirections action = categoryInfoDirections.actionCategoryInfoToCategoryIndetail(categoryInfo);
+        findNavController(this).navigate(action);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        // Remove the ValueEventListener to prevent memory leaks
+        if (categoryListener != null) {
+            FirebaseUtil.getFirebaseDatabase().getReference()
+                    .child("Categories")
+                    .removeEventListener(categoryListener);
+        }
     }
 
 }

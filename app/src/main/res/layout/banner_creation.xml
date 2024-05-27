@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:paddingHorizontal="@dimen/_12sdp"
-    android:paddingVertical="@dimen/_10sdp"
-    android:layout_width="match_parent"
     android:id="@+id/bottom_sheet"
     style="@style/Background"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_10sdp">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_height="wrap_content">
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <TextView
+            style="@style/WordColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Add image"
-            android:textSize="@dimen/_13ssp"
             android:fontFamily="@font/helvetica"
-            style="@style/WordColor" />
+            android:text="Add image"
+            android:textSize="@dimen/_13ssp" />
+
         <ImageButton
-            android:layout_width="wrap_content"
-            android:clickable="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/_3sdp"
             android:id="@+id/close_bottom_Sheet"
-            android:src="@drawable/baseline_close_24"
             style="@style/ComponentsColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_height="wrap_content"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/baseline_close_24" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/imageSelectionBtn"
+        style="@style/CustomFrameLayout"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginVertical="@dimen/_8sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:padding="@dimen/_3sdp"
-        style="@style/CustomFrameLayout">
+        android:padding="@dimen/_3sdp">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            app:cardCornerRadius="8dp"
             style="@style/BackgroundTint"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="8dp">
+
             <ImageView
+                android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_gravity="center"
-                android:id="@+id/image"
-                android:src="@drawable/photopick"
-                android:contentDescription="Camera Icon" />
+                android:contentDescription="Camera Icon"
+                android:src="@drawable/photopick" />
         </com.google.android.material.card.MaterialCardView>
 
     </FrameLayout>
 
     <TextView
+        style="@style/WordColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Banner for"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:textSize="@dimen/_13ssp"
         android:fontFamily="@font/helvetica"
-        style="@style/WordColor" />
+        android:text="Banner for"
+        android:textSize="@dimen/_13ssp" />
 
     <RadioGroup
         android:id="@+id/daily_weekly_button_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -82,12 +85,12 @@
         <RadioButton
             android:id="@+id/radio0"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/radio_flat_selector"
             android:button="@android:color/transparent"
             android:checked="true"
+            android:gravity="center"
             android:paddingLeft="@dimen/_16sdp"
             android:paddingTop="@dimen/_3sdp"
             android:paddingRight="@dimen/_16sdp"
@@ -97,12 +100,12 @@
 
         <RadioButton
             android:id="@+id/radio1"
-            android:gravity="center"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/radio_flat_selector"
             android:button="@android:color/transparent"
+            android:gravity="center"
             android:paddingLeft="@dimen/_16sdp"
             android:paddingTop="@dimen/_3sdp"
             android:paddingRight="@dimen/_16sdp"
@@ -112,20 +115,32 @@
 
     </RadioGroup>
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login_btn"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/_18sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_gravity="center"
-        android:background="@drawable/backicon"
-        android:fontFamily="@font/helveticabold"
-        android:text="Create Banner"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
+        android:paddingVertical="@dimen/_15sdp"
+        android:layout_marginHorizontal="@dimen/_18sdp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_banner_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_centerInParent="true"
+            android:background="@drawable/backicon"
+            android:fontFamily="@font/helveticabold"
+            android:text="Create Banner"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+        <ProgressBar
+            android:id="@+id/pg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/btnColor"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
 
 </LinearLayout>

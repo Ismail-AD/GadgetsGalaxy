@@ -1,242 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
     tools:context=".product_entry">
 
-    <LinearLayout
-        style="@style/Background"
+    <include layout="@layout/progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".product_entry">
+        android:layout_height="match_parent" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Background"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="10dp">
-
-            <ImageButton
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:padding="@dimen/_3sdp"
-                android:src="@drawable/baseline_arrow_back_24" />
-
-            <TextView
-                android:id="@+id/titleTextView"
-                style="@style/WordColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/helveticaneueroman"
-                android:paddingStart="@dimen/_5sdp"
-                android:text="Create Product"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-        </androidx.appcompat.widget.Toolbar>
-
-
-        <FrameLayout
-            android:id="@+id/imageSelectionBtn"
-            style="@style/CustomFrameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginVertical="@dimen/_8sdp"
-            android:padding="@dimen/_3sdp">
-
-            <com.google.android.material.card.MaterialCardView
-                style="@style/BackgroundTint"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="8dp">
-
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_70sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="Camera Icon"
-                    android:src="@drawable/photopick" />
-            </com.google.android.material.card.MaterialCardView>
-
-        </FrameLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/titlec"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_52sdp"
-            android:layout_marginTop="@dimen/_7sdp"
-            android:paddingHorizontal="@dimen/_18sdp"
-            app:boxStrokeColor="@color/btnColor"
-            app:cursorColor="@color/btnColor"
-            app:hintTextColor="@color/btnColor">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/titlefield"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:fontFamily="@font/helvetica"
-                android:hint="Product title"
-                android:importantForAutofill="no"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/price"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_52sdp"
-            android:layout_marginTop="@dimen/_7sdp"
-            android:paddingHorizontal="@dimen/_18sdp"
-            app:boxStrokeColor="@color/btnColor"
-            app:cursorColor="@color/btnColor"
-            app:hintTextColor="@color/btnColor">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/pricefield"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:fontFamily="@font/helvetica"
-                android:hint="Product price"
-                android:importantForAutofill="no"
-                android:inputType="numberSigned" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.skydoves.powerspinner.PowerSpinnerView
-            style="@style/hintSpinnerWordColor"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_7sdp"
-            android:gravity="start|center_vertical"
-            android:hint="Category"
-            android:padding="10dp"
-            android:paddingStart="@dimen/_13sdp"
-            android:textSize="@dimen/_14sdp"
-            app:spinner_arrow_gravity="end"
-            app:spinner_arrow_padding="8dp"
-            app:spinner_divider_color="@color/textsmall"
-            app:spinner_divider_show="true"
-            app:spinner_divider_size="0.4dp"
-            app:spinner_item_array="@array/categories"
-            app:spinner_item_height="46dp"
-            app:spinner_popup_animation="dropdown"
-            app:spinner_popup_elevation="14dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/quantity"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_52sdp"
-            android:layout_marginTop="@dimen/_7sdp"
-            android:paddingHorizontal="@dimen/_18sdp"
-            app:boxStrokeColor="@color/btnColor"
-            app:cursorColor="@color/btnColor"
-            app:hintTextColor="@color/btnColor">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/quantityfield"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:fontFamily="@font/helvetica"
-                android:hint="Product quantity"
-                android:importantForAutofill="no"
-                android:inputType="numberSigned" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
         <LinearLayout
+            android:id="@+id/rootLinear"
+            style="@style/Background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            tools:context=".product_entry">
 
-            <CheckBox
-                android:id="@+id/onSale"
-                style="@style/checkBoxTint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Sale"
-                android:textSize="@dimen/_14sdp" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Background"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="10dp">
 
-            <com.skydoves.powerspinner.PowerSpinnerView
-                android:id="@+id/sales"
-                style="@style/hintSpinnerWordColor"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="start|center_vertical"
-                android:hint="10%"
-                android:padding="10dp"
-                android:paddingStart="@dimen/_13sdp"
-                android:textSize="@dimen/_14sdp"
-                android:visibility="gone"
-                app:spinner_arrow_gravity="end"
-                app:spinner_arrow_padding="8dp"
-                app:spinner_divider_color="@color/textsmall"
-                app:spinner_divider_show="true"
-                app:spinner_divider_size="0.4dp"
-                app:spinner_item_array="@array/sales"
-                app:spinner_item_height="46dp"
-                app:spinner_popup_animation="dropdown"
-                app:spinner_popup_elevation="14dp" />
+                <ImageButton
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@drawable/baseline_arrow_back_24" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/titleTextView"
+                    style="@style/WordColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="Create Product"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/l_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_7sdp"
-            android:paddingHorizontal="@dimen/_18sdp"
-            app:boxStrokeColor="@color/btnColor"
-            app:cursorColor="@color/btnColor"
-            app:hintTextColor="@color/btnColor">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/desc_data"
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <FrameLayout
+                android:id="@+id/imageSelectionBtn"
+                style="@style/CustomFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:padding="@dimen/_3sdp">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/BackgroundTint"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="8dp">
+
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_70sdp"
+                        android:layout_gravity="center"
+                        android:contentDescription="Camera Icon"
+                        android:src="@drawable/photopick" />
+                </com.google.android.material.card.MaterialCardView>
+
+            </FrameLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titlec"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_52sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:paddingHorizontal="@dimen/_18sdp"
+                app:boxStrokeColor="@color/btnColor"
+                app:cursorColor="@color/btnColor"
+                app:hintTextColor="@color/btnColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titlefield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:hint="Product title"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_52sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:paddingHorizontal="@dimen/_18sdp"
+                app:boxStrokeColor="@color/btnColor"
+                app:cursorColor="@color/btnColor"
+                app:hintTextColor="@color/btnColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pricefield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:hint="Product price"
+                    android:importantForAutofill="no"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.skydoves.powerspinner.PowerSpinnerView
+                    android:id="@+id/catSpin"
+                    style="@style/hintSpinnerWordColor"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1.5"
+                    android:gravity="start|center_vertical"
+                    android:hint="Category"
+                    android:padding="10dp"
+                    android:textSize="@dimen/_14sdp"
+                    app:spinner_arrow_gravity="end"
+                    app:spinner_arrow_padding="8dp"
+                    app:spinner_divider_color="@color/textsmall"
+                    app:spinner_divider_show="true"
+                    app:spinner_divider_size="0.4dp"
+                    app:spinner_item_array="@array/categories"
+                    app:spinner_item_height="46dp"
+                    app:spinner_popup_animation="dropdown"
+                    app:spinner_popup_elevation="14dp" />
+
+                <com.skydoves.powerspinner.PowerSpinnerView
+                    android:id="@+id/model_spin"
+                    style="@style/hintSpinnerWordColor"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:hint="Model"
+                    android:padding="10dp"
+                    android:textSize="@dimen/_14sdp"
+                    app:spinner_arrow_gravity="end"
+                    app:spinner_arrow_padding="8dp"
+                    app:spinner_divider_color="@color/textsmall"
+                    app:spinner_divider_show="true"
+                    app:spinner_divider_size="0.4dp"
+                    app:spinner_item_array="@array/model"
+                    app:spinner_item_height="46dp"
+                    app:spinner_popup_animation="dropdown"
+                    app:spinner_popup_elevation="14dp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/quantity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_52sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:paddingHorizontal="@dimen/_18sdp"
+                app:boxStrokeColor="@color/btnColor"
+                app:cursorColor="@color/btnColor"
+                app:hintTextColor="@color/btnColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/quantityfield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:hint="Product quantity"
+                    android:importantForAutofill="no"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:fontFamily="@font/helvetica"
-                android:gravity="start"
-                android:hint="Desccription"
-                android:inputType="textMultiLine"
-                android:maxLength="120"
-                android:minLines="5" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <CheckBox
+                    android:id="@+id/onSale"
+                    style="@style/checkBoxTint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sale"
+                    android:textSize="@dimen/_14sdp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginVertical="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/backicon"
-            android:fontFamily="@font/helveticabold"
-            android:text="Save"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
+                <com.skydoves.powerspinner.PowerSpinnerView
+                    android:id="@+id/sales"
+                    style="@style/hintSpinnerWordColor"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:hint="10%"
+                    android:padding="10dp"
+                    android:paddingStart="@dimen/_13sdp"
+                    android:textSize="@dimen/_14sdp"
+                    android:visibility="gone"
+                    app:spinner_arrow_gravity="end"
+                    app:spinner_arrow_padding="8dp"
+                    app:spinner_divider_color="@color/textsmall"
+                    app:spinner_divider_show="true"
+                    app:spinner_divider_size="0.4dp"
+                    app:spinner_item_array="@array/sales"
+                    app:spinner_item_height="46dp"
+                    app:spinner_popup_animation="dropdown"
+                    app:spinner_popup_elevation="14dp" />
 
-    </LinearLayout>
-</ScrollView>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/l_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:paddingHorizontal="@dimen/_18sdp"
+                app:boxStrokeColor="@color/btnColor"
+                app:cursorColor="@color/btnColor"
+                app:hintTextColor="@color/btnColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/desc_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:gravity="start"
+                    android:hint="Desccription"
+                    android:inputType="textMultiLine"
+                    android:maxLength="120"
+                    android:minLines="5" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginVertical="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/backicon"
+                android:fontFamily="@font/helveticabold"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

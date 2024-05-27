@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="12dp"
     android:layout_marginStart="@dimen/_7sdp"
-    app:strokeWidth="3dp"
+    app:strokeWidth="2dp"
     app:contentPadding="0dp"
     style="@style/Chip_theme"
     android:layout_height="wrap_content">

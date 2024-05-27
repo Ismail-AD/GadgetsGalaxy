@@ -88,6 +88,32 @@
     </style>
 
 
+    <style name="theme_minus_image">
+        <item name="android:src">@drawable/minus_da</item>
+    </style>
+
+    <style name="theme_add_image">
+        <item name="android:src">@drawable/plus_day</item>
+    </style>
+
+    <style name="theme_cart_image">
+        <item name="android:src">@drawable/cart</item>
+    </style>
+
+    <style name="theme_user_image">
+        <item name="android:src">@drawable/user_name</item>
+    </style>
+
+    <style name="theme_logout_image">
+        <item name="android:src">@drawable/logout_day</item>
+    </style>
+
+
+    <style name="switchTheme">
+        <item name="trackTint">@drawable/track_selector</item>
+        <item name="thumbTint">@drawable/thumb_selector</item>
+    </style>
+
     <style name="bottom_menu">
         <item name="menu">@menu/bottom_menu</item>
     </style>

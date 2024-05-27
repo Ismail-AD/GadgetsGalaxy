@@ -35,7 +35,6 @@
                     android:layout_height="fill_parent"
                     android:id="@+id/paymentlogo"
                     imageFromUrl="@{user_data.imageUrl}"
-                    android:scaleType="fitCenter"
                     android:src="@drawable/projectlogo"/>
             </com.google.android.material.card.MaterialCardView>
 

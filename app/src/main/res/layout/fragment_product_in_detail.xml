@@ -33,6 +33,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:background="@drawable/circular_back"
+                    android:foreground="?selectableItemBackground"
                     android:gravity="center">
 
                     <ImageButton
@@ -51,6 +52,7 @@
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
+                    android:foreground="?selectableItemBackground"
                     android:background="@drawable/circular_back"
                     android:gravity="center">
 
@@ -65,10 +67,13 @@
                 </LinearLayout>
             </FrameLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="@dimen/_15sdp"
-                android:layout_marginVertical="@dimen/_10sdp"
+
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_20sdp"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
 
@@ -111,6 +116,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
+                    android:id="@+id/quantityLayout"
                     android:layout_marginVertical="@dimen/_5sdp"
                     android:layout_height="wrap_content">
                     <TextView
@@ -153,6 +159,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
+                    android:id="@+id/dateLayout"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/deliverytag"
@@ -177,24 +184,57 @@
                     android:layout_width="match_parent"
                     android:layout_marginVertical="@dimen/_10sdp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/pricetag"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.6"
                         android:layout_height="wrap_content"
                         android:text="Price"
                         style="@style/WordColor"
                         android:fontFamily="@font/helveticaneuemedium"
                         android:textSize="@dimen/_14ssp" />
-                    <TextView
-                        android:id="@+id/productprice"
-                        android:layout_width="match_parent"
-                        android:gravity="end"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Rs 370000"
-                        android:fontFamily="@font/helveticaneuemedium"
-                        style="@style/WordColor"
-                        android:textSize="@dimen/_17ssp" />
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/disprice"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rs 370000"
+                            android:fontFamily="@font/helveticaneuemedium"
+                            style="@style/WordColor"
+                            android:textSize="@dimen/_17ssp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <com.google.android.material.divider.MaterialDivider
+                                android:layout_width="match_parent"
+                                app:dividerColor="@color/black"
+                                android:id="@+id/slash_sale"
+                                android:visibility="gone"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_13sdp"
+                                android:layout_height="1dp"/>
+                            <TextView
+                                android:id="@+id/item_price"
+                                style="@style/WordColor"
+                                android:layout_width="match_parent"
+                                android:gravity="end"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helveticaneuemedium"
+                                android:text="Rs: 370000"
+                                android:textSize="@dimen/_16ssp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <com.google.android.material.divider.MaterialDivider
@@ -230,8 +270,26 @@
                     android:fontFamily="@font/helvetica"
                     style="@style/WordColor" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addtoCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="@drawable/backicon"
+            android:fontFamily="@font/helveticabold"
+            android:text="Add to cart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button"

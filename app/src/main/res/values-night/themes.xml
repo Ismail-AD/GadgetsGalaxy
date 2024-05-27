@@ -17,4 +17,9 @@
     <style name="search_image">
         <item name="android:icon">@drawable/nighttheme</item>
     </style>
+
+    <style name="switchTheme">
+        <item name="trackTint">@drawable/track_selector</item>
+        <item name="thumbTint">@drawable/thumb_night</item>
+    </style>
 </resources>

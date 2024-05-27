@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:transitionName="image_big"
             android:layout_height="@dimen/_250sdp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/playstation" />
 
         <LinearLayout
@@ -64,7 +64,7 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/count"
+            android:id="@+id/title"
             style="@style/WordColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             android:text="Playstation"
             android:textSize="@dimen/_20ssp" />
         <TextView
-            android:id="@+id/s2"
+            android:id="@+id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineHeight="22dp"
@@ -81,15 +81,7 @@
             android:layout_marginTop="@dimen/_14sdp"
             android:text="Discover the latest gadgets, accessories, and more, all under one roof.From cutting-edge electronics to must-have tech essentials, find it all here."
             android:textSize="@dimen/_14ssp" />
-        <TextView
-            android:id="@+id/productCount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineHeight="22dp"
-            android:fontFamily="@font/helvetica"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:text="This category has 4 products"
-            android:textSize="@dimen/_14ssp" />
+
 
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton

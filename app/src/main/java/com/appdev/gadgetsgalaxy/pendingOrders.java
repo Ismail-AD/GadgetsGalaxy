@@ -3,21 +3,16 @@ package com.appdev.gadgetsgalaxy;
 import static androidx.navigation.fragment.FragmentKt.findNavController;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.appdev.gadgetsgalaxy.data.Category_info;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.appdev.gadgetsgalaxy.data.Order_info;
-import com.appdev.gadgetsgalaxy.databinding.FragmentCategoryInfoBinding;
 import com.appdev.gadgetsgalaxy.databinding.FragmentPendingOrdersBinding;
-import com.appdev.gadgetsgalaxy.recyclerview.Category_Image_Adapter;
 import com.appdev.gadgetsgalaxy.recyclerview.Orders_list_adapter;
 
 import java.util.ArrayList;
@@ -33,7 +28,6 @@ public class pendingOrders extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

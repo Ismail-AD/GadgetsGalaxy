@@ -2,20 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/Home"
+        android:id="@+id/home_page"
         android:title="Home"
         android:icon="@drawable/homepage"
         />
     <item
-        android:id="@+id/Wishlist"
+        android:id="@+id/myWishList"
         android:icon="@drawable/wishlist"
         android:title="Wishlist"/>
     <item
-        android:id="@+id/Cart"
+        android:id="@+id/see_all_categories"
+        android:icon="@drawable/menu_day"
+        android:title="Category"/>
+    <item
+        android:id="@+id/CartScreen"
         android:icon="@drawable/cart"
         android:title="Cart" />
     <item
-        android:id="@+id/Settings"
+        android:id="@+id/account_settings"
         android:title="Settings"
         android:icon="@drawable/setting"/>
 </menu>

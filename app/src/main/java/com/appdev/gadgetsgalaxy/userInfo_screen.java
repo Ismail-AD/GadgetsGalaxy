@@ -3,24 +3,27 @@ package com.appdev.gadgetsgalaxy;
 import static androidx.navigation.fragment.FragmentKt.findNavController;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.appdev.gadgetsgalaxy.data.User_info;
 import com.appdev.gadgetsgalaxy.databinding.FragmentUserInfoScreenBinding;
 import com.appdev.gadgetsgalaxy.databinding.UserInfoDialogBinding;
 import com.appdev.gadgetsgalaxy.recyclerview.Customer_info_adapter;
+import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class userInfo_screen extends Fragment {
@@ -33,6 +36,7 @@ public class userInfo_screen extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity) requireActivity()).hideBottomNavigationView();
 
     }
 
@@ -40,20 +44,36 @@ public class userInfo_screen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         screenBinding = FragmentUserInfoScreenBinding.inflate(inflater, container, false);
-        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
-        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
-        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
-        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
-        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
-        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
-        userInfoList.add(new User_info(0, 0, "1", "John kelvin", "okjohnk@gmail.com", "+01921929", "nobody address", ""));
+
+
         customerInfoAdapter = new Customer_info_adapter(userInfoList, this::showDialogWithInfo);
         screenBinding.rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         screenBinding.rv.setAdapter(customerInfoAdapter);
+        getAllUsers();
         screenBinding.backBtn.setOnClickListener(view -> {
             findNavController(this).popBackStack();
         });
         return screenBinding.getRoot();
+    }
+
+    private void getAllUsers() {
+        FirebaseUtil.getFirebaseDatabase().getReference().child("userProfiles").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userInfoList.clear();
+                for(DataSnapshot data:snapshot.getChildren()){
+                    User_info userInfo = data.getValue(User_info.class);
+                    if(!Objects.equals(userInfo != null ? userInfo.getUserType() : null, "ADMIN")){
+                        userInfoList.add(userInfo);
+                    }
+                }
+                customerInfoAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void showDialogWithInfo(User_info userInfo) {

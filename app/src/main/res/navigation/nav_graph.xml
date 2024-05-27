@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/welcome_screen">
+    app:startDestination="@id/welcome_screen"
+    android:id="@+id/nav_graph">
 
     <fragment
         android:id="@+id/welcome_screen"
@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_welcome_screen_to_signup_screen"
             app:destination="@id/signup_screen" />
+        <action
+            android:id="@+id/action_welcome_screen_to_home_page"
+            app:destination="@id/home_page" />
+        <action
+            android:id="@+id/action_welcome_screen_to_admin_page"
+            app:destination="@id/admin_page" />
     </fragment>
     <fragment
         android:id="@+id/login_screen"
@@ -28,13 +34,20 @@
         <action
             android:id="@+id/action_login_screen_to_home_page"
             app:destination="@id/home_page" />
+        <action
+            android:id="@+id/action_login_screen_to_signup_screen"
+            app:destination="@id/signup_screen" />
 
     </fragment>
     <fragment
         android:id="@+id/signup_screen"
         android:name="com.appdev.gadgetsgalaxy.signup_screen"
         android:label="fragment_signup_screen"
-        tools:layout="@layout/fragment_signup_screen" />
+        tools:layout="@layout/fragment_signup_screen" >
+        <action
+            android:id="@+id/action_signup_screen_to_login_screen"
+            app:destination="@id/login_screen" />
+    </fragment>
     <fragment
         android:id="@+id/admin_page"
         android:name="com.appdev.gadgetsgalaxy.admin_page"
@@ -55,6 +68,9 @@
         <action
             android:id="@+id/action_admin_page_to_banners_admin"
             app:destination="@id/banners_admin" />
+        <action
+            android:id="@+id/action_admin_page_to_profile_admin"
+            app:destination="@id/profile_admin" />
     </fragment>
     <fragment
         android:id="@+id/userInfo_screen"
@@ -74,7 +90,11 @@
         android:id="@+id/categoryIndetail"
         android:name="com.appdev.gadgetsgalaxy.categoryIndetail"
         android:label="fragment_category_indetail"
-        tools:layout="@layout/fragment_category_indetail" />
+        tools:layout="@layout/fragment_category_indetail" >
+        <argument
+            android:name="categoryInDetail"
+            app:argType="com.appdev.gadgetsgalaxy.data.Category_info" />
+    </fragment>
     <fragment
         android:id="@+id/product_showcase"
         android:name="com.appdev.gadgetsgalaxy.product_showcase"
@@ -91,7 +111,12 @@
         android:id="@+id/product_entry"
         android:name="com.appdev.gadgetsgalaxy.product_entry"
         android:label="fragment_product_entry"
-        tools:layout="@layout/fragment_product_entry" />
+        tools:layout="@layout/fragment_product_entry" >
+        <argument
+            android:name="Product"
+            app:argType="com.appdev.gadgetsgalaxy.data.Product_info"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/pendingOrders"
         android:name="com.appdev.gadgetsgalaxy.pendingOrders"
@@ -105,6 +130,10 @@
         <action
             android:id="@+id/action_product_in_detail_to_product_entry"
             app:destination="@id/product_entry" />
+        <argument
+            android:name="Product"
+            app:argType="com.appdev.gadgetsgalaxy.data.Product_info"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/banners_admin"
@@ -116,5 +145,59 @@
         android:id="@+id/home_page"
         android:name="com.appdev.gadgetsgalaxy.home_page"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_home_page_to_login_screen"
+            app:destination="@id/login_screen" />
+        <action
+            android:id="@+id/action_home_page_to_product_in_detail"
+            app:destination="@id/product_in_detail" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/see_all_categories"
+        android:name="com.appdev.gadgetsgalaxy.See_all_categories"
+        android:label="fragment_see_all_categories"
+        tools:layout="@layout/fragment_see_all_categories" >
+        <action
+            android:id="@+id/action_see_all_categories_to_categoryIndetail"
+            app:destination="@id/categoryIndetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/myWishList"
+        android:name="com.appdev.gadgetsgalaxy.myWishList"
+        android:label="fragment_my_wish_list"
+        tools:layout="@layout/fragment_my_wish_list" >
+        <action
+            android:id="@+id/action_myWishList_to_product_in_detail"
+            app:destination="@id/product_in_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/CartScreen"
+        android:name="com.appdev.gadgetsgalaxy.CartScreen"
+        android:label="fragment_cart_screen"
+        tools:layout="@layout/fragment_cart_screen" >
+        <action
+            android:id="@+id/action_CartScreen_to_checkout_fragment"
+            app:destination="@id/checkout_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/account_settings"
+        android:name="com.appdev.gadgetsgalaxy.account_settings"
+        android:label="fragment_account_settings"
+        tools:layout="@layout/fragment_account_settings" />
+    <fragment
+        android:id="@+id/profile_admin"
+        android:name="com.appdev.gadgetsgalaxy.profile_admin"
+        android:label="fragment_profile_admin"
+        tools:layout="@layout/fragment_profile_admin" >
+        <argument
+            android:name="user"
+            app:argType="com.appdev.gadgetsgalaxy.data.User_info" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkout_fragment"
+        android:name="com.appdev.gadgetsgalaxy.checkout_fragment"
+        android:label="fragment_checkout_fragment"
+        tools:layout="@layout/fragment_checkout_fragment" />
 </navigation>

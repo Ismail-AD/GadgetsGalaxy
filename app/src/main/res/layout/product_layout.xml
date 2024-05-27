@@ -33,11 +33,11 @@
 
                 <ImageView
                     android:id="@+id/catImage"
-                    imageFromUrl="@{item_data.imageUrl}"
+                    imageFromUrlForOthers="@{item_data.imageUrl}"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_135sdp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/playstation" />
+                    android:src="@drawable/placeholder" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/helvetica"
-                    android:text="@{String.valueOf(item_data.item_rating)}"
+                    android:text="@{item_data.item_rating}"
                     android:textSize="@dimen/_14ssp" />
                 <RelativeLayout
                     android:layout_width="0dp"
