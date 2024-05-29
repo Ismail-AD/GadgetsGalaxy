@@ -17,6 +17,7 @@ import com.appdev.gadgetsgalaxy.data.Product_info;
 import com.appdev.gadgetsgalaxy.databinding.FragmentMyWishListBinding;
 import com.appdev.gadgetsgalaxy.recyclerview.Product_image_adapter;
 import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.appdev.gadgetsgalaxy.utils.Utility;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -35,7 +36,11 @@ public class myWishList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (Utility.isDarkModeActivated(requireActivity())) {
+            Utility.status_bar_dark(requireActivity(), R.color.black);
+        } else {
+            Utility.status_bar(requireActivity(), R.color.white);
+        }
     }
 
     @Override

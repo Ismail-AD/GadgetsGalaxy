@@ -27,7 +27,7 @@
 
         <ImageButton
             android:id="@+id/close_bottom_Sheet"
-            style="@style/ComponentsColor"
+            style="@style/Icontint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

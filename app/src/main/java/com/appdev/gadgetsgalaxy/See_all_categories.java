@@ -11,12 +11,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.appdev.gadgetsgalaxy.data.Category_info;
 import com.appdev.gadgetsgalaxy.databinding.FragmentSeeAllCategoriesBinding;
 import com.appdev.gadgetsgalaxy.recyclerview.Category_Image_Adapter;
 import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.appdev.gadgetsgalaxy.utils.Utility;
 import com.denzcoskun.imageslider.constants.AnimationTypes;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -44,7 +46,11 @@ public class See_all_categories extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        if (Utility.isDarkModeActivated(requireActivity())) {
+            Utility.status_bar_dark(requireActivity(), R.color.black);
+        } else {
+            Utility.status_bar(requireActivity(), R.color.white);
+        }
     }
 
     @Override
@@ -61,8 +67,9 @@ public class See_all_categories extends Fragment {
         return binding.getRoot();
     }
 
-    private void navigateWithInfo(Category_info categoryInfoImageViewPair) {
-        findNavController(this).navigate(R.id.action_see_all_categories_to_categoryIndetail);
+    private void navigateWithInfo(Category_info categoryInfo) {
+        NavDirections action = See_all_categoriesDirections.actionSeeAllCategoriesToCategoryIndetail(categoryInfo);
+        findNavController(this).navigate(action);
     }
 
     @Override

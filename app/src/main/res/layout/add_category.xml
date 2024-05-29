@@ -25,12 +25,12 @@
             style="@style/WordColor" />
         <ImageButton
             android:layout_width="wrap_content"
+            style="@style/Icontint"
             android:clickable="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/_3sdp"
             android:id="@+id/close_bottom_Sheet"
             android:src="@drawable/baseline_close_24"
-            style="@style/ComponentsColor"
             android:layout_gravity="end"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -64,9 +64,8 @@
         android:id="@+id/titlec"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_52sdp"
-        app:boxStrokeColor="@color/btnColor"
         app:hintTextColor="@color/btnColor"
-        app:cursorColor="@color/btnColor"
+        android:theme="@style/TextInputLayoutStyle"
         android:layout_marginTop="@dimen/_7sdp"
         android:paddingHorizontal="@dimen/_18sdp">
 
@@ -86,9 +85,8 @@
         android:id="@+id/l_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/btnColor"
+        android:theme="@style/TextInputLayoutStyle"
         app:hintTextColor="@color/btnColor"
-        app:cursorColor="@color/btnColor"
         android:paddingHorizontal="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_7sdp">
 

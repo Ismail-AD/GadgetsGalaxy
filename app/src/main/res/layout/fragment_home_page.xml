@@ -34,6 +34,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/them_card_back"
+                android:id="@+id/gosrch"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
                 android:layout_gravity="end"
@@ -44,7 +45,7 @@
 
                 <ImageView
                     android:id="@+id/notifaciton"
-                    style="@style/theme_notify_image"
+                    style="@style/theme_search_icon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -52,20 +53,6 @@
                     android:padding="@dimen/_8sdp" />
             </com.google.android.material.card.MaterialCardView>
         </androidx.appcompat.widget.Toolbar>
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_content_concpt"
-            style="@style/theme_search_view"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:paddingEnd="@dimen/_8sdp"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="Search"
-            app:searchHintIcon="@drawable/no_bk" />
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/banner_home"

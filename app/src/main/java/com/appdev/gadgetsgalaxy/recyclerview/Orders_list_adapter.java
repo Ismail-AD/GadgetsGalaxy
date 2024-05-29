@@ -1,10 +1,12 @@
 package com.appdev.gadgetsgalaxy.recyclerview;
 
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appdev.gadgetsgalaxy.R;
@@ -13,23 +15,27 @@ import com.appdev.gadgetsgalaxy.databinding.OrderInfoLayoutBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.function.Consumer;
 
 public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int ORDER_VIEW_TYPE = 1;
     private static final int DIVIDER_VIEW_TYPE = 2;
 
     private List<Object> items = new ArrayList<>();
+    public  List<Order_info> arrivedOrders = new ArrayList<>();
+    final Consumer<Pair<String,List<Order_info>>> clickedOrder;
 
-    public Orders_list_adapter(Map<String, List<Order_info>> usersOrders) {
-        int entryIndex = 0;
-        int totalEntries = usersOrders.size();
-        for (Map.Entry<String, List<Order_info>> entry : usersOrders.entrySet()) {
-            items.addAll(entry.getValue()); // Add user's orders
-            if (entryIndex < totalEntries - 1) {
-                items.add(entry.getKey()); // Add order ID as divider item
-            }
-            entryIndex++;
+
+    public Orders_list_adapter(List<Order_info> orders,Consumer<Pair<String,List<Order_info>>> clickedOrder) {
+        this.clickedOrder = clickedOrder;
+        this.arrivedOrders = orders;
+        String lastOrderId = null;
+        for (Order_info orderInfo : orders) {
+            items.add(orderInfo);
+            lastOrderId = orderInfo.getOrderId();
+        }
+        if (lastOrderId != null) {
+            items.add(lastOrderId); // Add the last order ID as divider item
         }
     }
 
@@ -42,7 +48,7 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return new OrderViewHolder(binding);
         } else if (viewType == DIVIDER_VIEW_TYPE) {
             View dividerView = inflater.inflate(R.layout.divider_seprator, parent, false);
-            return new DividerViewHolder(dividerView);
+            return new DividerViewHolder(dividerView,clickedOrder,arrivedOrders);
         }
         throw new IllegalArgumentException("Invalid view type");
     }
@@ -54,7 +60,7 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Order_info order = (Order_info) item;
             ((OrderViewHolder) holder).bind(order);
         } else if (item instanceof String) {
-
+            // Handle divider binding if necessary
         }
     }
 
@@ -75,7 +81,6 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-
         private final OrderInfoLayoutBinding binding;
 
         OrderViewHolder(@NonNull OrderInfoLayoutBinding binding) {
@@ -86,12 +91,29 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         void bind(Order_info order) {
             binding.setOrderData(order);
             binding.executePendingBindings();
+            int value;
+            if (order.getItem_discounted_price() > 0) {
+                value = order.getItem_discounted_price() * order.getSelectedQuantity();
+            } else {
+                value = order.getItem_price() * order.getSelectedQuantity();
+            }
+            binding.pricetotal.setText(String.valueOf(value));
         }
     }
 
     public static class DividerViewHolder extends RecyclerView.ViewHolder {
-        public DividerViewHolder(View itemView) {
+        public DividerViewHolder(View itemView, Consumer<Pair<String,List<Order_info>>> clickedOrder, List<Order_info> arrivedOrders) {
             super(itemView);
+            AppCompatButton cancel;
+            AppCompatButton accept;
+            cancel = itemView.getRootView().findViewById(R.id.cancel);
+            accept = itemView.getRootView().findViewById(R.id.send);
+            cancel.setOnClickListener(v1->{
+                clickedOrder.accept(new Pair<>("cancel",arrivedOrders));
+            });
+            accept.setOnClickListener(v2->{
+                clickedOrder.accept(new Pair<>("accept",arrivedOrders));
+            });
         }
     }
 }

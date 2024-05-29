@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 
 import com.appdev.gadgetsgalaxy.data.User_info;
 import com.appdev.gadgetsgalaxy.databinding.FragmentLoginScreenBinding;
@@ -72,7 +73,9 @@ public class login_screen extends Fragment {
                 binding.pg.setVisibility(View.VISIBLE);
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-
+                        NavOptions navOptions = new NavOptions.Builder()
+                                .setPopUpTo(R.id.login_screen, true)
+                                .build();
                         firebaseDatabase.getReference().child("userProfiles").child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                                 .get().addOnCompleteListener(profileTask -> {
                                     if (profileTask.isSuccessful() && profileTask.getResult().exists()) {
@@ -81,10 +84,10 @@ public class login_screen extends Fragment {
                                             String userType = userProfile.getUserType();
                                             if ("ADMIN".equals(userType)) {
                                                 saveUserType("ADMIN");
-                                                findNavController(this).navigate(R.id.action_login_screen_to_admin_page);
+                                                findNavController(this).navigate(R.id.action_login_screen_to_admin_page, null, navOptions);
                                             } else if ("USER".equals(userType)) {
                                                 saveUserType("USER");
-                                                findNavController(this).navigate(R.id.action_login_screen_to_home_page);
+                                                findNavController(this).navigate(R.id.action_login_screen_to_home_page, null, navOptions);
                                             }
                                         }
                                     } else {
@@ -146,10 +149,6 @@ public class login_screen extends Fragment {
                                 }
                             }
                         });
-        binding.loginGoogle.setOnClickListener(v -> {
-            resultLauncher.launch(googleSignInClient.getSignInIntent());
-        });
-
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -160,7 +159,7 @@ public class login_screen extends Fragment {
                 if (firebaseUser != null) {
                     String userImage = firebaseUser.getPhotoUrl().toString();
                     String userName = firebaseUser.getDisplayName();
-                    User_info userProfile = new User_info(0, 0, firebaseAuth.getCurrentUser().getUid(), userName, firebaseAuth.getCurrentUser().getEmail(), "", "", userImage, "USER");
+                    User_info userProfile = new User_info("", firebaseAuth.getCurrentUser().getUid(), userName, firebaseAuth.getCurrentUser().getEmail(), "", "", userImage, "USER");
 
                     firebaseDatabase.getReference().child("userProfiles")
                             .child(firebaseAuth.getCurrentUser().getUid())

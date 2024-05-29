@@ -206,50 +206,28 @@ public class product_entry extends Fragment {
                     dismissProgressDialog();
                     Toast.makeText(requireContext(), valid, Toast.LENGTH_SHORT).show();
                 } else {
+                    String newProductName = productEntryBinding.titlefield.getText().toString();
                     DatabaseReference databaseReference = FirebaseUtil.getFirebaseDatabase().getReference().child("Products");
 
-                    String productId = databaseReference.push().getKey();
-                    StorageReference imageRef = FirebaseUtil.getStorageReference().child(System.currentTimeMillis() + ".jpg");
-                    imageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
-                            imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                                String downloadUrl = uri.toString();
-                                int discountedPrice;
-                                if (productEntryBinding.sales.getText().toString().isEmpty() || !productEntryBinding.onSale.isChecked()) {
-                                    discountedPrice = 0;
-                                } else {
-                                    int percentage = Integer.parseInt(productEntryBinding.sales.getText().toString().replace("%", ""));
-                                    double discountMultiplier = 1 - (percentage / 100.0);
-                                    discountedPrice = (int) (Integer.parseInt(productEntryBinding.pricefield.getText().toString()) * discountMultiplier);
-                                }
-                                String date = new Utility().formatDate(System.currentTimeMillis());
-                                Product_info product = new Product_info(
-                                        productEntryBinding.titlefield.getText().toString(),
-                                        downloadUrl,
-                                        Integer.parseInt(productEntryBinding.pricefield.getText().toString()),
-                                        Integer.parseInt(productEntryBinding.modelSpin.getText().toString()),
-                                        discountedPrice, productId,
-                                        Integer.parseInt(productEntryBinding.quantityfield.getText().toString()),
-                                        "0.0", productEntryBinding.descData.getText().toString(), productEntryBinding.catSpin.getText().toString(), date
-                                );
-                                databaseReference.child(productId).setValue(product).addOnCompleteListener(task -> {
-                                    dismissProgressDialog();
-                                    if (task.isSuccessful()) {
-                                        findNavController(this).popBackStack();
-                                        Toast.makeText(getContext(), "Product saved successfully.", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getContext(), "Failed to save product.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }).addOnFailureListener(e -> {
-                                        dismissProgressDialog();
-                                        Toast.makeText(getContext(), "Failed to get download URL.", Toast.LENGTH_SHORT).show();
-                                    }
-                            )
-                    ).addOnFailureListener(e -> {
-                        dismissProgressDialog();
-                        Toast.makeText(getContext(), "Failed to upload image.", Toast.LENGTH_SHORT).show();
-                    });
+                    // Query the database to check if a product with the same name already exists
+                    databaseReference.orderByChild("item_name").equalTo(newProductName).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                dismissProgressDialog();
+                                Toast.makeText(getContext(), "Product with the same name already exists.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Proceed with adding the new product
+                                addNewProduct(databaseReference);
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            dismissProgressDialog();
+                            Toast.makeText(getContext(), "Failed to check product name.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             } else {
                 updateProduct();
@@ -265,6 +243,51 @@ public class product_entry extends Fragment {
                 productEntryBinding.sales.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    private void addNewProduct(DatabaseReference databaseReference) {
+        String productId = databaseReference.push().getKey();
+        StorageReference imageRef = FirebaseUtil.getStorageReference().child(System.currentTimeMillis() + ".jpg");
+        imageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
+                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String downloadUrl = uri.toString();
+                    int discountedPrice;
+                    if (productEntryBinding.sales.getText().toString().isEmpty() || !productEntryBinding.onSale.isChecked()) {
+                        discountedPrice = 0;
+                    } else {
+                        int percentage = Integer.parseInt(productEntryBinding.sales.getText().toString().replace("%", ""));
+                        double discountMultiplier = 1 - (percentage / 100.0);
+                        discountedPrice = (int) (Integer.parseInt(productEntryBinding.pricefield.getText().toString()) * discountMultiplier);
+                    }
+                    String date = new Utility().formatDate(System.currentTimeMillis());
+                    Product_info product = new Product_info(
+                            productEntryBinding.titlefield.getText().toString(),
+                            downloadUrl,
+                            Integer.parseInt(productEntryBinding.pricefield.getText().toString()),
+                            Integer.parseInt(productEntryBinding.modelSpin.getText().toString()),
+                            discountedPrice, productId,
+                            Integer.parseInt(productEntryBinding.quantityfield.getText().toString()),
+                            "0.0", productEntryBinding.descData.getText().toString(), productEntryBinding.catSpin.getText().toString(), date
+                    );
+                    databaseReference.child(productId).setValue(product).addOnCompleteListener(task -> {
+                        dismissProgressDialog();
+                        if (task.isSuccessful()) {
+                            findNavController(this).popBackStack();
+                            Toast.makeText(getContext(), "Product saved successfully.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to save product.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }).addOnFailureListener(e -> {
+                            dismissProgressDialog();
+                            Toast.makeText(getContext(), "Failed to get download URL.", Toast.LENGTH_SHORT).show();
+                        }
+                )
+        ).addOnFailureListener(e -> {
+            dismissProgressDialog();
+            Toast.makeText(getContext(), "Failed to upload image.", Toast.LENGTH_SHORT).show();
+        });
+
     }
 
     public void showProgressDialog() {

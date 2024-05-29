@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.divider.MaterialDivider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:dividerColor="#2F1E484C"
-    android:id="@+id/slash"
-    android:layout_marginVertical="@dimen/_10sdp"
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginHorizontal="@dimen/_10sdp"
-    android:layout_height="4dp" />
+    android:orientation="vertical"
+    android:id="@+id/accceptButtons"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/_8sdp"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="@dimen/_7sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/reg_btn_back"
+            android:fontFamily="@font/helveticabold"
+            android:text="cancel"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/send"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@drawable/backicon"
+            android:fontFamily="@font/helvetica"
+            android:text="Send"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        app:dividerColor="#2F1E484C"
+        android:id="@+id/slash"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:layout_height="4dp" />
+</LinearLayout>

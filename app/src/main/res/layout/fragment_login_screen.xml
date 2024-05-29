@@ -92,50 +92,6 @@
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/or"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:gravity="center_vertical|center"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="1dp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="#A3979FA5" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="OR"
-            android:textSize="@dimen/_12ssp"
-            android:visibility="visible" />
-
-        <LinearLayout
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="1dp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:background="#A3979FA5" />
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login_google"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/_18sdp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_gravity="center"
-        android:background="@drawable/reg_btn_back"
-        android:drawableStart="@drawable/googlebutton"
-        android:paddingHorizontal="@dimen/_45sdp"
-        android:fontFamily="@font/helveticabold"
-        android:text="Sign In With Google"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
 
     <ProgressBar
         android:layout_width="wrap_content"

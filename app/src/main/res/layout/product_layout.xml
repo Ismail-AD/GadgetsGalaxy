@@ -109,7 +109,7 @@
                     android:layout_height="match_parent">
                     <com.google.android.material.divider.MaterialDivider
                         android:layout_width="match_parent"
-                        app:dividerColor="@color/black"
+                        style="@style/DividerColor"
                         android:id="@+id/slash"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_5sdp"

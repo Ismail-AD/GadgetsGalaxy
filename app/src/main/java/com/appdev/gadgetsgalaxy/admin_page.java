@@ -65,16 +65,13 @@ public class admin_page extends Fragment {
 
         panelDataList.clear();
 
-        userCountLiveData.observe(getViewLifecycleOwner(), count -> {
-            panelDataList.add(new Admin_panel_data(count, "Customers"));
-        });
-        panelDataList.add(new Admin_panel_data(267, "Categories"));
-        panelDataList.add(new Admin_panel_data(267, "Products"));
-        panelDataList.add(new Admin_panel_data(267, "Earnings"));
-        panelDataList.add(new Admin_panel_data(267, "Pending Orders"));
-        panelDataList.add(new Admin_panel_data(267, "Delivered Orders"));
-        panelDataList.add(new Admin_panel_data(267, "Cancel Orders"));
-        panelDataList.add(new Admin_panel_data(267, "Banners"));
+        panelDataList.add(new Admin_panel_data("Customers"));
+        panelDataList.add(new Admin_panel_data("Categories"));
+        panelDataList.add(new Admin_panel_data("Products"));
+        panelDataList.add(new Admin_panel_data("Earnings"));
+        panelDataList.add(new Admin_panel_data("Pending Orders"));
+        panelDataList.add(new Admin_panel_data("Cancel Orders"));
+        panelDataList.add(new Admin_panel_data("Banners"));
         adminCardAdapter = new Admin_card_adapter(panelDataList, this::onAdminCardClick);
         adminPageBinding.rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adminPageBinding.rv.setAdapter(adminCardAdapter);
@@ -150,7 +147,9 @@ public class admin_page extends Fragment {
             popupMenu.inflate(R.menu.admin_menu);
             popupMenu.show();
         });
-    };
+    }
+
+    ;
 
     public void onAdminCardClick(String title) {
         switch (title) {
@@ -170,9 +169,6 @@ public class admin_page extends Fragment {
                 findNavController(this).navigate(R.id.action_admin_page_to_pendingOrders);
                 break;
 
-            case "Delivered":
-
-                break;
             case "Cancel Orders":
 
                 break;

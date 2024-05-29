@@ -1,5 +1,7 @@
 package com.appdev.gadgetsgalaxy;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Pair;
@@ -67,6 +69,10 @@ public class CartScreen extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.checkout.setOnClickListener(v->{
+            findNavController(this).navigate(R.id.action_CartScreen_to_checkout_fragment);
+        });
 
         eventListenerForCart = new ValueEventListener() {
             @Override

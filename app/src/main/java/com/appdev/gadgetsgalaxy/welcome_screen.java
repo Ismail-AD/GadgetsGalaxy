@@ -15,9 +15,7 @@ import com.appdev.gadgetsgalaxy.databinding.FragmentWelcomeScreenBinding;
 
 public class
 welcome_screen extends Fragment {
-
     private FragmentWelcomeScreenBinding binding;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

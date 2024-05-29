@@ -24,8 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     boolean keepIt = true;
-    final int keepFor = 1000;
-
     private ActivityMainBinding binding;
     private static final String PREFS_NAME = "MyPrefs";
     private static final String KEY_FIRST_ENTRY_TIME = "firstEntryTime";
@@ -40,23 +38,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-
         splashScreen.setKeepOnScreenCondition(() -> keepIt);
+
 
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         long firstEntryTime = sharedPreferences.getLong(KEY_FIRST_ENTRY_TIME, -1);
+
+        Utility.applyTheme( Utility.getThemeMode(MainActivity.this));
 
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(binding.navHostFragment.getId());
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
 
-            // Set up BottomNavigationView with NavController
             NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
 
@@ -75,16 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (firstEntryTime == -1) {
+            Utility.setAppTheme(MainActivity.this);
             long currentTimeMillis = System.currentTimeMillis();
             sharedPreferences.edit().putLong(KEY_FIRST_ENTRY_TIME, currentTimeMillis).apply();
             navController.navigate(R.id.welcome_screen);
             keepIt = false;
         } else {
-            // Not the first time entering the app, perform other action
             moveToLoginFragment();
         }
-
-
     }
 
 

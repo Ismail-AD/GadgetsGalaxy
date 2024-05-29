@@ -152,6 +152,9 @@
         <action
             android:id="@+id/action_home_page_to_product_in_detail"
             app:destination="@id/product_in_detail" />
+        <action
+            android:id="@+id/action_home_page_to_product_showcase"
+            app:destination="@id/product_showcase" />
 
     </fragment>
     <fragment
@@ -185,7 +188,11 @@
         android:id="@+id/account_settings"
         android:name="com.appdev.gadgetsgalaxy.account_settings"
         android:label="fragment_account_settings"
-        tools:layout="@layout/fragment_account_settings" />
+        tools:layout="@layout/fragment_account_settings" >
+        <action
+            android:id="@+id/action_account_settings_to_user_side_orders"
+            app:destination="@id/user_side_orders" />
+    </fragment>
     <fragment
         android:id="@+id/profile_admin"
         android:name="com.appdev.gadgetsgalaxy.profile_admin"
@@ -199,5 +206,13 @@
         android:id="@+id/checkout_fragment"
         android:name="com.appdev.gadgetsgalaxy.checkout_fragment"
         android:label="fragment_checkout_fragment"
-        tools:layout="@layout/fragment_checkout_fragment" />
+        tools:layout="@layout/fragment_checkout_fragment" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/user_side_orders"
+        android:name="com.appdev.gadgetsgalaxy.user_side_orders"
+        android:label="fragment_user_side_orders"
+        tools:layout="@layout/fragment_user_side_orders" />
+
 </navigation>

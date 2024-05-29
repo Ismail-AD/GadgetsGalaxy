@@ -54,7 +54,7 @@ public class signup_screen extends Fragment {
                 screenBinding.pg.setVisibility(View.VISIBLE);
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        User_info userProfile = new User_info(0, 0, firebaseAuth.getUid(), userName, email, "", "", "", "USER");
+                        User_info userProfile = new User_info("", firebaseAuth.getUid(), userName, email, "", "", "", "USER");
                         firebaseDatabase.getReference().child("userProfiles")
                                 .child(Objects.requireNonNull(firebaseAuth.getUid()))
                                 .setValue(userProfile)

@@ -4,6 +4,7 @@ import static androidx.navigation.fragment.FragmentKt.findNavController;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -11,21 +12,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.appdev.gadgetsgalaxy.data.Category_info;
 import com.appdev.gadgetsgalaxy.data.Product_info;
 import com.appdev.gadgetsgalaxy.databinding.FragmentProductShowcaseBinding;
 import com.appdev.gadgetsgalaxy.recyclerview.Product_image_adapter;
 import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.appdev.gadgetsgalaxy.utils.Utility;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class product_showcase extends Fragment {
@@ -34,6 +37,11 @@ public class product_showcase extends Fragment {
     Product_image_adapter product_image_adapter;
 
     List<Product_info> productInfoList = new ArrayList<>();
+    List<Product_info> filteredProductInfoList = new ArrayList<>();
+    List<String> categoryList = new ArrayList<>();
+    ValueEventListener categoryItemListener;
+    Menu menu;
+    PopupMenu popupMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,9 +55,12 @@ public class product_showcase extends Fragment {
                              Bundle savedInstanceState) {
 
         productShowcaseBinding = FragmentProductShowcaseBinding.inflate(inflater, container, false);
-        product_image_adapter = new Product_image_adapter(productInfoList, this::navigateWithInfo);
+        product_image_adapter = new Product_image_adapter(filteredProductInfoList, this::navigateWithInfo);
+        checkAuth();
         productShowcaseBinding.rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
         productShowcaseBinding.rv.setAdapter(product_image_adapter);
+
+
         productShowcaseBinding.backBtn.setOnClickListener(view -> {
             findNavController(this).popBackStack();
         });
@@ -60,41 +71,84 @@ public class product_showcase extends Fragment {
         productShowcaseBinding.catBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(requireContext(), view, 0, 0, R.style.PopupTheme);
+                popupMenu = new PopupMenu(requireContext(), view, 0, 0, R.style.PopupTheme);
+                menu = popupMenu.getMenu();
+                for (String category : categoryList) {
+                    menu.add(category);
+                }
                 popupMenu.setOnMenuItemClickListener(menuItem -> {
-
-                    String title = Objects.requireNonNull(menuItem.getTitle()).toString();
-                    switch (title) {
-                        case "All products":
-                            // Handle "All products" click
-                            return true;
-                        case "Laptops":
-                            // Handle "Laptops" click
-                            return true;
-                        case "SmartPhones":
-                            // Handle "SmartPhones" click
-                            return true;
-                        case "GameConsoles":
-                            // Handle "GameConsoles" click
-                            return true;
-                        case "Audio":
-                            // Handle "Audio" click
-                            return true;
-                        default:
-                            // Default case
-                            return false;
+                    String title = menuItem.getTitle().toString();
+                    filteredProductInfoList.clear();
+                    if (title == null || title.equals("All products")) {
+                        filteredProductInfoList.addAll(productInfoList);
+                    } else {
+                        for (Product_info item : productInfoList) {
+                            if (item.getCategory().equals(title)) {
+                                filteredProductInfoList.add(item);
+                            }
+                        }
                     }
+                    product_image_adapter.notifyDataSetChanged();
+                    return true;
                 });
-                popupMenu.inflate(R.menu.menu_category);
                 popupMenu.show();
             }
         });
         return productShowcaseBinding.getRoot();
     }
 
+    private void checkAuth() {
+        String userType = Utility.getUserTypeFromPrefs(productShowcaseBinding.getRoot().getContext());
+        if (!userType.trim().isEmpty()) {
+            if ("ADMIN".equals(userType)) {
+                productShowcaseBinding.floatingButton.setVisibility(View.VISIBLE);
+            } else if ("USER".equals(userType)) {
+                productShowcaseBinding.floatingButton.setVisibility(View.GONE);
+            }
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        categoryItemListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                categoryList.clear();
+                categoryList.add("All products");
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Category_info categoryInfo = dataSnapshot.getValue(Category_info.class);
+                    categoryList.add(categoryInfo.getCatTitle());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        FirebaseUtil.getFirebaseDatabase().getReference()
+                .child("Categories")
+                .addValueEventListener(categoryItemListener);
+
+        productShowcaseBinding.searchContentConcpt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+
         FirebaseUtil.getFirebaseDatabase().getReference().child("Products").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,6 +159,8 @@ public class product_showcase extends Fragment {
                         productInfoList.add(product);
                     }
                 }
+                filteredProductInfoList.clear();
+                filteredProductInfoList.addAll(productInfoList);
                 changeVisibility();
                 product_image_adapter.notifyDataSetChanged();
             }
@@ -114,6 +170,21 @@ public class product_showcase extends Fragment {
                 Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private void filter(String text) {
+        filteredProductInfoList.clear();
+        if (text.trim().isEmpty()) {
+            filteredProductInfoList.addAll(productInfoList);
+        } else {
+            for (Product_info item : productInfoList) {
+                if (item.getItem_name().toLowerCase().contains(text.toLowerCase())) {
+                    filteredProductInfoList.add(item);
+                }
+            }
+        }
+        product_image_adapter.notifyDataSetChanged();
     }
 
     private void changeVisibility() {

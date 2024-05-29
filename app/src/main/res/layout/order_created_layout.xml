@@ -25,31 +25,10 @@
             android:paddingVertical="@dimen/_5sdp"
             android:layout_height="wrap_content">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/deliverytag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:text="Order created"
-                    android:fontFamily="@font/helvetica"
-                    style="@style/WordColor"
-                    android:textSize="@dimen/_14ssp" />
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="match_parent"
-                    android:gravity="end"
-                    android:layout_height="wrap_content"
-                    android:text="@{order_data.orderDate}"
-                    android:fontFamily="@font/helvetica"
-                    style="@style/WordColor"
-                    android:textSize="@dimen/_14ssp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_marginVertical="@dimen/_10sdp"
                 android:layout_height="match_parent">
 
                 <com.google.android.material.card.MaterialCardView
@@ -60,7 +39,7 @@
                     app:cardCornerRadius="10dp">
                     <ImageView
                         android:id="@+id/catImage"
-                        imageFromUrl="1"
+                        imageFromUrl="@{order_data.imageUrl}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -76,7 +55,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/count"
+                        android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{order_data.status}"
@@ -120,7 +99,7 @@
                         android:orientation="horizontal"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/amount"
+                            android:id="@+id/deliveryPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Total Price"
@@ -128,22 +107,19 @@
                             style="@style/WordColor"
                             android:textSize="@dimen/_14ssp" />
                         <TextView
-                            android:id="@+id/pricetotal"
+                            android:id="@+id/price"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="end"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="1222"
                             android:fontFamily="@font/helvetica"
                             style="@style/WordColor"
                             android:textSize="@dimen/_14ssp" />
                     </LinearLayout>
 
                 </LinearLayout>
-
-
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

@@ -8,7 +8,7 @@
     <color name="textsmall">#6F7478</color>
     <color name="darkOne">#587C80</color>
     <color name="selected_item_color">#BDE0BF</color>
-
+    <color name="nightViewBack">#343434</color>
 
     <color name="shimmer_bg_color">#BFBEBE</color>
 </resources>

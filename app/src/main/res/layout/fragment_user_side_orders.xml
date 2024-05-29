@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    style="@style/Background"
     android:layout_height="match_parent"
-    tools:context=".pendingOrders">
+    android:orientation="vertical"
+    style="@style/Background"
+    tools:context=".user_side_orders">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_height="?attr/actionBarSize"
         style="@style/Background"
         android:elevation="10dp">
         <ImageButton
             android:layout_width="wrap_content"
             android:clickable="true"
+            style="@style/Icontint"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/_3sdp"
             android:id="@+id/back_btn"
@@ -27,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"
-            android:text="Pending Orders"
+            android:text="Orders"
             style="@style/WordColor"
             android:fontFamily="@font/helveticaneueroman"
             android:textStyle="bold"
@@ -38,8 +39,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@id/toolbar"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingTop="@dimen/_7sdp">
+
         <ProgressBar
             android:id="@+id/pg"
             android:layout_width="wrap_content"
@@ -51,12 +54,12 @@
             android:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="@dimen/_1sdp"
-            android:layout_width="match_parent"
             android:id="@+id/rv"
-            android:visibility="gone"
-            android:paddingBottom="@dimen/_10sdp"
-            android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+
     </RelativeLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

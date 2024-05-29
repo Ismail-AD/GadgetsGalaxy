@@ -20,6 +20,7 @@ import com.appdev.gadgetsgalaxy.databinding.FragmentHomePageBinding;
 import com.appdev.gadgetsgalaxy.recyclerview.Chip_adapter;
 import com.appdev.gadgetsgalaxy.recyclerview.Product_image_adapter;
 import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.appdev.gadgetsgalaxy.utils.Utility;
 import com.denzcoskun.imageslider.constants.AnimationTypes;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -47,6 +48,11 @@ public class home_page extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((MainActivity) requireActivity()).checkAvailability();
+        if (Utility.isDarkModeActivated(requireActivity())) {
+            Utility.status_bar_dark(requireActivity(), R.color.black);
+        } else {
+            Utility.status_bar(requireActivity(), R.color.white);
+        }
     }
 
     @Override
@@ -55,6 +61,9 @@ public class home_page extends Fragment {
         homePageBinding = FragmentHomePageBinding.inflate(inflater, container, false);
 
 
+        homePageBinding.gosrch.setOnClickListener(v->{
+            findNavController(this).navigate(R.id.action_home_page_to_product_showcase);
+        });
         product_image_adapter = new Product_image_adapter(productInfoList, this::navigateWithInfo);
         homePageBinding.rvProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
         homePageBinding.rvProducts.setAdapter(product_image_adapter);

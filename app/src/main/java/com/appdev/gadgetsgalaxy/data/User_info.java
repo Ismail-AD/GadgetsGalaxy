@@ -4,8 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class User_info implements Parcelable {
-    private int cart_items;
-    private int ordered_items;
+    private String postalCode;
     private String userId;
     private String name;
     private String email;
@@ -15,8 +14,7 @@ public class User_info implements Parcelable {
     private String userType;
 
     protected User_info(Parcel in) {
-        cart_items = in.readInt();
-        ordered_items = in.readInt();
+        postalCode = in.readString();
         userId = in.readString();
         name = in.readString();
         email = in.readString();
@@ -29,8 +27,7 @@ public class User_info implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(cart_items);
-        dest.writeInt(ordered_items);
+        dest.writeString(postalCode);
         dest.writeString(userId);
         dest.writeString(name);
         dest.writeString(email);
@@ -67,9 +64,8 @@ public class User_info implements Parcelable {
 
 
 
-    public User_info(int cart_items, int ordered_items, String userId, String name, String email, String contact, String address, String imageUrl, String userType) {
-        this.cart_items = cart_items;
-        this.ordered_items = ordered_items;
+    public User_info(String postalCode, String userId, String name, String email, String contact, String address, String imageUrl, String userType) {
+        this.postalCode = postalCode;
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -82,20 +78,12 @@ public class User_info implements Parcelable {
     public User_info() {
     }
 
-    public int getCart_items() {
-        return cart_items;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setCart_items(int cart_items) {
-        this.cart_items = cart_items;
-    }
-
-    public int getOrdered_items() {
-        return ordered_items;
-    }
-
-    public void setOrdered_items(int ordered_items) {
-        this.ordered_items = ordered_items;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getUserId() {

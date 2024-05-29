@@ -50,26 +50,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
+                android:gravity="center_vertical"
                 android:paddingStart="@dimen/_10sdp"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(element_data.count)}"
-                    android:fontFamily="@font/helveticabold"
-                    style="@style/WordColor"
-                    android:textSize="@dimen/_20ssp" />
 
                 <TextView
                     android:id="@+id/count_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{element_data.title}"
-                    android:fontFamily="@font/helvetica"
+                    android:fontFamily="@font/helveticaneueroman"
                     style="@style/WordColor"
-                    android:textSize="@dimen/_14ssp" />
+                    android:textSize="@dimen/_18ssp" />
             </LinearLayout>
         </LinearLayout>
 

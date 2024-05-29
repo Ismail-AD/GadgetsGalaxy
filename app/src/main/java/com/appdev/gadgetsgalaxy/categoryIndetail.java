@@ -21,6 +21,7 @@ import com.appdev.gadgetsgalaxy.data.Category_info;
 import com.appdev.gadgetsgalaxy.databinding.AddCategoryBinding;
 import com.appdev.gadgetsgalaxy.databinding.FragmentCategoryIndetailBinding;
 import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.appdev.gadgetsgalaxy.utils.Utility;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
@@ -71,6 +72,7 @@ public class categoryIndetail extends Fragment {
                     }
                 });
 
+        checkAuth();
         categoryInDetailBinding.floatingButton.setOnClickListener(view -> {
             bottomSheetDialog = new BottomSheetDialog(
                     requireContext());
@@ -153,6 +155,17 @@ public class categoryIndetail extends Fragment {
         });
 
         return categoryInDetailBinding.getRoot();
+    }
+
+    private void checkAuth() {
+        String userType = Utility.getUserTypeFromPrefs(categoryInDetailBinding.getRoot().getContext());
+        if (!userType.trim().isEmpty()) {
+            if ("ADMIN".equals(userType)) {
+                categoryInDetailBinding.floatingButton.setVisibility(View.VISIBLE);
+            } else if ("USER".equals(userType)) {
+                categoryInDetailBinding.floatingButton.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void updateData(Category_info updatedCategoryInfo) {

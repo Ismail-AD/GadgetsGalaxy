@@ -8,13 +8,13 @@
     tools:context=".product_showcase">
 
     <ProgressBar
-        android:layout_width="wrap_content"
         android:id="@+id/progres"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="visible"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/btnColor" />
+        android:indeterminateTint="@color/btnColor"
+        android:visibility="visible" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,6 +25,7 @@
 
         <ImageButton
             android:id="@+id/back_btn"
+            style="@style/Icontint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -46,6 +47,7 @@
         <ImageButton
             android:id="@+id/cat_btn"
             android:layout_width="wrap_content"
+            style="@style/Icontint"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/_20sdp"
@@ -57,35 +59,29 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/filter"
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_content_concpt"
+        style="@style/theme_search_view"
+        android:layout_marginTop="@dimen/_3sdp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_3sdp">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_content_concpt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/srchview_back"
-            android:paddingEnd="@dimen/_8sdp"
-            app:queryBackground="@android:color/transparent"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search"
-            app:searchHintIcon="@drawable/no_bk"
-            style="@style/search_image" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        app:iconifiedByDefault="false"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Search"
+        app:searchHintIcon="@drawable/no_bk" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:layout_below="@id/filter"
+        android:layout_below="@id/search_content_concpt"
         android:paddingTop="@dimen/_3sdp" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button"

@@ -132,55 +132,6 @@
                 android:fontFamily="@font/helvetica"
                 style="@style/WordColor" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cart Items"
-                android:textSize="@dimen/_14ssp"
-                android:fontFamily="@font/helveticabold"
-                style="@style/WordColor" />
-
-            <TextView
-                android:id="@+id/cart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.7"
-                android:maxLines="1"
-                android:text="@{String.valueOf(user_data.cart_items)}"
-                android:textSize="@dimen/_14ssp"
-                android:fontFamily="@font/helvetica"
-                style="@style/WordColor" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Items Order"
-                android:textSize="@dimen/_14ssp"
-                android:fontFamily="@font/helveticabold"
-                style="@style/WordColor" />
-
-            <TextView
-                android:id="@+id/order"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.7"
-                android:maxLines="1"
-                android:text="@{String.valueOf(user_data.ordered_items)}"
-                android:textSize="@dimen/_14ssp"
-                android:fontFamily="@font/helvetica"
-                style="@style/WordColor" />
-        </LinearLayout>
-
 
     </LinearLayout>
 </layout>

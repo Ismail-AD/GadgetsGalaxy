@@ -17,6 +17,7 @@ import com.appdev.gadgetsgalaxy.databinding.FragmentUserInfoScreenBinding;
 import com.appdev.gadgetsgalaxy.databinding.UserInfoDialogBinding;
 import com.appdev.gadgetsgalaxy.recyclerview.Customer_info_adapter;
 import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
+import com.appdev.gadgetsgalaxy.utils.Utility;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -36,8 +37,11 @@ public class userInfo_screen extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((MainActivity) requireActivity()).hideBottomNavigationView();
-
+        if (Utility.isDarkModeActivated(requireActivity())) {
+            Utility.status_bar_dark(requireActivity(), R.color.black);
+        } else {
+            Utility.status_bar(requireActivity(), R.color.white);
+        }
     }
 
     @Override

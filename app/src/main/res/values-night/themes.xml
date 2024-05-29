@@ -4,6 +4,78 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+    <style name="Background">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="admin_card_back">
+        <item name="cardBackgroundColor">@color/nightViewBack</item>
+    </style>
+    <style name="Chip_theme">
+        <item name="strokeColor">@color/white</item>
+    </style>
+
+
+    <style name="theme_cart_image">
+        <item name="android:src">@drawable/cart_night</item>
+    </style>
+    <style name="theme_change_image">
+        <item name="android:src">@drawable/night_night</item>
+    </style>
+
+    <style name="theme_user_image">
+        <item name="android:src">@drawable/user_name_night</item>
+    </style>
+
+    <style name="theme_call_image">
+        <item name="android:src">@drawable/call_night</item>
+    </style>
+    <style name="theme_location_image">
+        <item name="android:src">@drawable/location_night</item>
+    </style>
+
+    <style name="theme_logout_image">
+        <item name="android:src">@drawable/logout_night</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/btnColor</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="cursorColor">@color/btnColor</item>
+    </style>
+
+    <style name="theme_search_view">
+        <item name="searchIcon">@drawable/srch_night</item>
+        <item name="android:background">@drawable/srch_view_night</item>
+    </style>
+
+    <style name="them_card_back">
+        <item name="cardBackgroundColor">@color/nightViewBack</item>
+    </style>
+
+    <style name="theme_minus_image">
+        <item name="android:src">@drawable/minus_night</item>
+    </style>
+
+    <style name="theme_add_image">
+        <item name="android:src">@drawable/plus_night</item>
+    </style>
+
+
+    <style name="theme_search_icon">
+        <item name="android:src">@drawable/srch_night</item>
+    </style>
+    <style name="Icontint">
+        <item name="android:tint">@color/white</item>
+    </style>
+    <style name="WordColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="DividerColor">
+        <item name="dividerColor">@color/white</item>
+    </style>
+
     <style name="FloatingActionButtonShape" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

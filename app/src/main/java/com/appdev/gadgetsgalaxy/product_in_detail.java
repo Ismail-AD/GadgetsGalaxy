@@ -40,7 +40,11 @@ public class product_in_detail extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (Utility.isDarkModeActivated(requireActivity())) {
+            Utility.status_bar_dark(requireActivity(), R.color.black);
+        } else {
+            Utility.status_bar(requireActivity(), R.color.white);
+        }
     }
 
     @Override
