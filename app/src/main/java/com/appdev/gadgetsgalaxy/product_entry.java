@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.appdev.gadgetsgalaxy.data.Category_info;
 import com.appdev.gadgetsgalaxy.data.Product_info;
 import com.appdev.gadgetsgalaxy.databinding.FragmentProductEntryBinding;
 import com.appdev.gadgetsgalaxy.databinding.ProgressBarBinding;
@@ -29,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -39,6 +42,9 @@ public class product_entry extends Fragment {
 
     ProgressBarBinding progressBarBinding;
     Dialog progressDialog;
+    List<String> categoryList = new ArrayList<>();
+    ValueEventListener categoryItemListener;
+
 
     Uri imageUri;
     Product_info productInfo = null;
@@ -65,6 +71,8 @@ public class product_entry extends Fragment {
             productEntryBinding.titleTextView.setText("Update Product");
             productEntryBinding.submitBtn.setText("Update");
         }
+
+
 
 
         getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -194,6 +202,30 @@ public class product_entry extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        categoryItemListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                categoryList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Category_info categoryInfo = dataSnapshot.getValue(Category_info.class);
+                    categoryList.add(categoryInfo.getCatTitle());
+                }
+                productEntryBinding.catSpin.setItems(categoryList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        FirebaseUtil.getFirebaseDatabase().getReference()
+                .child("Categories")
+                .addValueEventListener(categoryItemListener);
+
+
+
         productEntryBinding.imageSelectionBtn.setOnClickListener(v -> {
             getContentLauncher.launch("image/*");
         });

@@ -64,7 +64,9 @@
         android:id="@+id/titlec"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_52sdp"
+        app:boxStrokeColor="@color/btnColor"
         app:hintTextColor="@color/btnColor"
+        app:cursorColor="@color/btnColor"
         android:theme="@style/TextInputLayoutStyle"
         android:layout_marginTop="@dimen/_7sdp"
         android:paddingHorizontal="@dimen/_18sdp">
@@ -86,7 +88,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/TextInputLayoutStyle"
+        app:boxStrokeColor="@color/btnColor"
         app:hintTextColor="@color/btnColor"
+        app:cursorColor="@color/btnColor"
         android:paddingHorizontal="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_7sdp">
 

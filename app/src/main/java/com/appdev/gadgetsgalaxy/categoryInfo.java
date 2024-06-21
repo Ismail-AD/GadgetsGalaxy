@@ -173,6 +173,7 @@ public class categoryInfo extends Fragment {
                     Category_info categoryInfo = dataSnapshot.getValue(Category_info.class);
                     categoryInfoList.add(categoryInfo);
                 }
+                changeVisibility();
                 categoryImageAdapter.notifyDataSetChanged(); // Notify the adapter that the data has changed
             }
 
@@ -189,6 +190,17 @@ public class categoryInfo extends Fragment {
 
         // Store the listener in a member variable to remove it later
         this.categoryListener = categoryListener;
+    }
+
+    private void changeVisibility() {
+            categoryInfoBinding.pg.setVisibility(View.GONE);
+            if(categoryInfoList.isEmpty()){
+                categoryInfoBinding.rv.setVisibility(View.GONE);
+                categoryInfoBinding.catEmpty.setVisibility(View.VISIBLE);
+            } else{
+                categoryInfoBinding.catEmpty.setVisibility(View.GONE);
+                categoryInfoBinding.rv.setVisibility(View.VISIBLE);
+            }
     }
 
     private void navigateWithInfo(Category_info categoryInfo) {

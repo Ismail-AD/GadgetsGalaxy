@@ -2,6 +2,7 @@ package com.appdev.gadgetsgalaxy;
 
 import static androidx.navigation.fragment.FragmentKt.findNavController;
 
+import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import com.appdev.gadgetsgalaxy.data.Category_info;
 import com.appdev.gadgetsgalaxy.databinding.AddCategoryBinding;
@@ -42,6 +44,9 @@ public class categoryIndetail extends Fragment {
     Category_info categoryObject;
     DatabaseReference categoryRef;
     ValueEventListener OurCategoryListener;
+    Dialog progressDialog;
+    NavController navController;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,10 +57,20 @@ public class categoryIndetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         categoryInDetailBinding = FragmentCategoryIndetailBinding.inflate(inflater, container, false);
-
+        navController = findNavController(this);
         categoryObject = categoryIndetailArgs.fromBundle(getArguments()).getCategoryInDetail();
         SetupViews(categoryObject);
         imageUri = Uri.parse(categoryObject.getImageUrl());
+        progressDialog = new Dialog(requireContext());
+
+        String userType = Utility.getUserTypeFromPrefs(categoryInDetailBinding.getRoot().getContext());
+        if (!userType.trim().isEmpty()) {
+            if ("ADMIN".equals(userType)) {
+                categoryInDetailBinding.delLayout.setVisibility(View.VISIBLE);
+            } else if ("USER".equals(userType)) {
+                categoryInDetailBinding.delLayout.setVisibility(View.GONE);
+            }
+        }
 
         getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 uri -> {
@@ -138,6 +153,7 @@ public class categoryIndetail extends Fragment {
                                         }
                                     }
                                 }
+
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
                                     Toast.makeText(requireContext(), "Error checking category existence", Toast.LENGTH_SHORT).show();
@@ -206,6 +222,19 @@ public class categoryIndetail extends Fragment {
         }
     }
 
+    public void showProgressDialog() {
+        progressDialog.setContentView(R.layout.progress_bar);
+        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public void dismissProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
     private void SetupViews(Category_info categoryObject) {
         Glide.with(requireContext()).load(categoryObject.getImageUrl()).placeholder(R.drawable.placeholder).into(categoryInDetailBinding.imageIndetail);
         categoryInDetailBinding.title.setText(categoryObject.getCatTitle());
@@ -215,6 +244,41 @@ public class categoryIndetail extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        categoryInDetailBinding.delBtn.setOnClickListener(v -> {
+            showProgressDialog();
+            FirebaseUtil.getFirebaseDatabase().getReference().child("Categories").child(categoryObject.getCatTitle().trim())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                // Category exists, proceed to delete it
+                                FirebaseUtil.getFirebaseDatabase().getReference().child("Categories").child(categoryObject.getCatTitle().trim())
+                                        .removeValue()
+                                        .addOnSuccessListener(aVoid -> {
+                                            dismissProgressDialog();
+                                            Toast.makeText(requireContext(), "Category deleted successfully", Toast.LENGTH_SHORT).show();
+                                            navController.popBackStack();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            dismissProgressDialog();
+                                            Toast.makeText(requireContext(), "Failed to delete category", Toast.LENGTH_SHORT).show();
+                                        });
+                            } else {
+                                dismissProgressDialog();
+                                // Category does not exist
+                                Toast.makeText(requireContext(), "Category does not exist!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            dismissProgressDialog();
+                            Toast.makeText(requireContext(), "Error checking category existence", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
 
         OurCategoryListener = new ValueEventListener() {
             @Override
@@ -236,6 +300,7 @@ public class categoryIndetail extends Fragment {
             findNavController(this).popBackStack();
         });
     }
+
     private void setupCategoryListener(String categoryTitle) {
         if (categoryRef != null && OurCategoryListener != null) {
             categoryRef.removeEventListener(OurCategoryListener); // Remove the old listener
@@ -246,6 +311,7 @@ public class categoryIndetail extends Fragment {
 
         categoryRef.addValueEventListener(OurCategoryListener);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

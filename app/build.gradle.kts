@@ -60,6 +60,10 @@ dependencies {
     implementation("com.airbnb.android:lottie:5.2.0")
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation("com.stripe:stripe-android:20.46.0")
+    implementation("com.stripe:stripe-java:25.0.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
 
 

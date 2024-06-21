@@ -25,6 +25,8 @@ public class Utility {
     private static final String PREF_THEME_MODE = "theme_mode";
     private static final String THEME_MODE_LIGHT = "light";
     private static final String THEME_MODE_DARK = "dark";
+    public static final String PUBLISHABLE = "pk_test_51PTezcRupmuHuosb5UJBZIpFVqNNso8qakNIYY9kRTULBOqqOqvY6Z3Jw5Wk187bRKx2PJ0jYfBp3MJJi4xASDFU001DEmRDkr";
+    public static final String SECRET_KEY = "sk_test_51PTezcRupmuHuosbg4F2vD3DCzV59QEHq4PMFW5hF0Gn1Jg7xvmpUSMtKwGNaEPIWjmjZWwI5ZhomVTxeQ0I8yDn00gOeBYco3";
     @BindingAdapter("imageFromUrl")
     public static void loadImageFromUrl(ImageView imageView, String url) {
         Glide.with(imageView).load(url).placeholder(R.drawable.profileimageph).into(imageView);

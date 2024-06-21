@@ -122,8 +122,13 @@ public class See_all_categories extends Fragment {
     }
 
     private void changeVisibility() {
-        binding.pg.setVisibility(View.INVISIBLE);
-        binding.rv.setVisibility(View.VISIBLE);
+        binding.pg.setVisibility(View.GONE);
+        if(categoryInfoList.isEmpty()){
+            binding.catEmpty.setVisibility(View.VISIBLE);
+            binding.bannerHome.setVisibility(View.GONE);
+        } else{
+            binding.rv.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setUpViewsForCat() {

@@ -42,6 +42,7 @@ public class home_page extends Fragment {
     ArrayList<String> homeList = new ArrayList<>();
     ValueEventListener valueEventListenerForHome;
     ValueEventListener valueEventListenerForProducts;
+    private List<Product_info> filteredProductList = new ArrayList<>();
     ValueEventListener categoryListener;
 
     @Override
@@ -61,13 +62,12 @@ public class home_page extends Fragment {
         homePageBinding = FragmentHomePageBinding.inflate(inflater, container, false);
 
 
-        homePageBinding.gosrch.setOnClickListener(v->{
+        homePageBinding.gosrch.setOnClickListener(v -> {
             findNavController(this).navigate(R.id.action_home_page_to_product_showcase);
         });
         product_image_adapter = new Product_image_adapter(productInfoList, this::navigateWithInfo);
         homePageBinding.rvProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
         homePageBinding.rvProducts.setAdapter(product_image_adapter);
-
 
 
         chipAdapter = new Chip_adapter(filterList, this::onFilterChange);
@@ -119,9 +119,10 @@ public class home_page extends Fragment {
                     String cat = dataSnapshot.child("catTitle").getValue(String.class);
                     filterList.add(cat);
                 }
-                if(!filterList.isEmpty()){
+                if (!filterList.isEmpty()) {
                     filterList.add(0, "All");
                 }
+
                 changeVisibilityOfChip();
                 chipAdapter.notifyDataSetChanged();
             }
@@ -148,9 +149,11 @@ public class home_page extends Fragment {
                         productInfoList.add(product);
                     }
                 }
-                if(!productInfoList.isEmpty()){
+                if (!productInfoList.isEmpty()) {
                     productInfoList.sort((p1, p2) -> Integer.compare(p2.getItem_discounted_price(), p1.getItem_discounted_price()));
                 }
+                filteredProductList.clear();
+                filteredProductList.addAll(productInfoList);
                 changeVisibility();
                 product_image_adapter.notifyDataSetChanged();
             }
@@ -166,11 +169,26 @@ public class home_page extends Fragment {
     }
 
     private void changeVisibilityOfChip() {
+        if (filterList.isEmpty()) {
+            homePageBinding.catTitle.setVisibility(View.GONE);
+        } else {
+            homePageBinding.catTitle.setVisibility(View.VISIBLE);
+        }
         homePageBinding.rv.setVisibility(View.VISIBLE);
         homePageBinding.progresCat.setVisibility(View.GONE);
     }
 
     private void changeVisibility() {
+        if (productInfoList.isEmpty() && filterList.isEmpty() && homeList.isEmpty()) {
+            homePageBinding.emptyAll.setVisibility(View.VISIBLE);
+            homePageBinding.emptyProducts.setVisibility(View.GONE);
+        } else if (productInfoList.isEmpty()) {
+            homePageBinding.emptyProducts.setVisibility(View.VISIBLE);
+            homePageBinding.emptyAll.setVisibility(View.GONE);
+        } else {
+            homePageBinding.emptyProducts.setVisibility(View.GONE);
+            homePageBinding.emptyAll.setVisibility(View.GONE);
+        }
         homePageBinding.rvProducts.setVisibility(View.VISIBLE);
         homePageBinding.progres.setVisibility(View.GONE);
     }
@@ -198,6 +216,15 @@ public class home_page extends Fragment {
     }
 
     public void onFilterChange(String newChip) {
-
+        filteredProductList.clear();
+        if (newChip.equals("All")) {
+            filteredProductList.addAll(productInfoList);
+        } else {
+            for (Product_info product : productInfoList) {
+                if (product.getCategory().equals(newChip)) {
+                    filteredProductList.add(product);
+                }
+            }
+        }
     }
 }

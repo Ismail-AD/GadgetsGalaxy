@@ -36,11 +36,31 @@
 
 
     </androidx.appcompat.widget.Toolbar>
-
+    <TextView
+        android:id="@+id/cat_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:text="No categories created yet !"
+        android:textSize="@dimen/_16ssp"
+        android:fontFamily="@font/helvetica"
+        style="@style/WordColor" />
+    <ProgressBar
+        android:id="@+id/pg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/btnColor"
+        android:visibility="visible" />
     <androidx.recyclerview.widget.RecyclerView
         android:paddingTop="@dimen/_3sdp"
         android:layout_width="match_parent"
         android:layout_below="@id/toolbar"
+        android:visibility="gone"
         android:id="@+id/rv"
         android:layout_height="match_parent"/>
 
