@@ -4,6 +4,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -21,12 +22,13 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int ORDER_VIEW_TYPE = 1;
     private static final int DIVIDER_VIEW_TYPE = 2;
 
+    public static Boolean isPending = true;
     private List<Object> items = new ArrayList<>();
-    public  List<Order_info> arrivedOrders = new ArrayList<>();
-    final Consumer<Pair<String,List<Order_info>>> clickedOrder;
+    public List<Order_info> arrivedOrders = new ArrayList<>();
+    final Consumer<Pair<String, List<Order_info>>> clickedOrder;
 
 
-    public Orders_list_adapter(List<Order_info> orders,Consumer<Pair<String,List<Order_info>>> clickedOrder) {
+    public Orders_list_adapter(List<Order_info> orders, Consumer<Pair<String, List<Order_info>>> clickedOrder) {
         this.clickedOrder = clickedOrder;
         this.arrivedOrders = orders;
         String lastOrderId = null;
@@ -34,6 +36,7 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             items.add(orderInfo);
             lastOrderId = orderInfo.getOrderId();
         }
+        isPending = orders.get(0).getStatus().equals("PENDING");
         if (lastOrderId != null) {
             items.add(lastOrderId); // Add the last order ID as divider item
         }
@@ -48,7 +51,7 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return new OrderViewHolder(binding);
         } else if (viewType == DIVIDER_VIEW_TYPE) {
             View dividerView = inflater.inflate(R.layout.divider_seprator, parent, false);
-            return new DividerViewHolder(dividerView,clickedOrder,arrivedOrders);
+            return new DividerViewHolder(dividerView, clickedOrder, arrivedOrders);
         }
         throw new IllegalArgumentException("Invalid view type");
     }
@@ -97,22 +100,30 @@ public class Orders_list_adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 value = order.getItem_price() * order.getSelectedQuantity();
             }
-            binding.pricetotal.setText(String.valueOf(value));
+            String tPrice = "Rs:" + value;
+            binding.pricetotal.setText(tPrice);
         }
     }
 
     public static class DividerViewHolder extends RecyclerView.ViewHolder {
-        public DividerViewHolder(View itemView, Consumer<Pair<String,List<Order_info>>> clickedOrder, List<Order_info> arrivedOrders) {
+        public DividerViewHolder(View itemView, Consumer<Pair<String, List<Order_info>>> clickedOrder, List<Order_info> arrivedOrders) {
             super(itemView);
+            LinearLayout layout;
             AppCompatButton cancel;
             AppCompatButton accept;
+            layout = itemView.getRootView().findViewById(R.id.both_btns);
             cancel = itemView.getRootView().findViewById(R.id.cancel);
             accept = itemView.getRootView().findViewById(R.id.send);
-            cancel.setOnClickListener(v1->{
-                clickedOrder.accept(new Pair<>("cancel",arrivedOrders));
+            if (isPending) {
+                layout.setVisibility(View.VISIBLE);
+            } else {
+                layout.setVisibility(View.GONE);
+            }
+            cancel.setOnClickListener(v1 -> {
+                clickedOrder.accept(new Pair<>("cancel", arrivedOrders));
             });
-            accept.setOnClickListener(v2->{
-                clickedOrder.accept(new Pair<>("accept",arrivedOrders));
+            accept.setOnClickListener(v2 -> {
+                clickedOrder.accept(new Pair<>("send", arrivedOrders));
             });
         }
     }

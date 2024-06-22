@@ -36,7 +36,7 @@
                     imageFromUrlForOthers="@{item_data.imageUrl}"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_135sdp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/placeholder" />
             </com.google.android.material.card.MaterialCardView>
 

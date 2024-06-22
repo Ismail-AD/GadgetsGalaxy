@@ -79,6 +79,18 @@ public class product_in_detail extends Fragment {
             if ("ADMIN".equals(userType)) {
                 binding.delBtn.setImageResource(R.drawable.baseline_delete_24);
                 binding.addtoCart.setVisibility(View.GONE);
+                binding.delBtn.setOnClickListener(v -> {
+                    showProgressDialog();
+                    FirebaseUtil.getFirebaseDatabase().getReference().child("Products").child(productInfo.getItem_id()).removeValue().addOnSuccessListener(taskD -> {
+                        dismissProgressDialog();
+                        Toast.makeText(getContext(), "Product Removed Successfully!", Toast.LENGTH_SHORT).show();
+                        findNavController(this).popBackStack();
+                    }).addOnFailureListener(failed -> {
+                        dismissProgressDialog();
+                        Toast.makeText(getContext(), failed.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    });
+
+                });
             } else if ("USER".equals(userType)) {
                 binding.delBtn.setImageResource(R.drawable.favorite_border_24);
                 binding.floatingButton.setVisibility(View.GONE);
@@ -164,7 +176,6 @@ public class product_in_detail extends Fragment {
                             Toast.makeText(getContext(), "Failed to read cart data!", Toast.LENGTH_SHORT).show();
                         }
                     });
-
 
 
                 });

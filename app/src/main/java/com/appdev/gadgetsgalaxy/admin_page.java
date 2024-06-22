@@ -44,13 +44,8 @@ public class admin_page extends Fragment {
     private static final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private static final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static final String PREFS_NAME = "TypePrefs";
-    private static final String KEY_USER_TYPE = "userType";
 
-    long userCount;
     User_info userProfile;
-    LiveData<Integer> userCountLiveData = getCurrentUsersCount();
-//    LiveData<Integer> categoryCountLiveData = getCategoryCount();
-//    LiveData<Integer> productCountLiveData = getProductCount();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,8 +63,8 @@ public class admin_page extends Fragment {
         panelDataList.add(new Admin_panel_data("Customers"));
         panelDataList.add(new Admin_panel_data("Categories"));
         panelDataList.add(new Admin_panel_data("Products"));
-        panelDataList.add(new Admin_panel_data("Earnings"));
         panelDataList.add(new Admin_panel_data("Pending Orders"));
+        panelDataList.add(new Admin_panel_data("Sent Orders"));
         panelDataList.add(new Admin_panel_data("Cancel Orders"));
         panelDataList.add(new Admin_panel_data("Banners"));
         adminCardAdapter = new Admin_card_adapter(panelDataList, this::onAdminCardClick);
@@ -162,15 +157,16 @@ public class admin_page extends Fragment {
             case "Products":
                 findNavController(this).navigate(R.id.action_admin_page_to_product_showcase);
                 break;
-            case "Earnings":
-
-                break;
             case "Pending Orders":
                 findNavController(this).navigate(R.id.action_admin_page_to_pendingOrders);
                 break;
-
+            case "Sent Orders":
+                NavDirections action = admin_pageDirections.actionAdminPageToSentOrCancelOrders("sent");
+                findNavController(this).navigate(action);
+                break;
             case "Cancel Orders":
-
+                NavDirections action_b = admin_pageDirections.actionAdminPageToSentOrCancelOrders("cancel");
+                findNavController(this).navigate(action_b);
                 break;
             case "Banners":
                 findNavController(this).navigate(R.id.action_admin_page_to_banners_admin);

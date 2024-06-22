@@ -60,7 +60,7 @@
                     app:cardCornerRadius="10dp">
                     <ImageView
                         android:id="@+id/catImage"
-                        imageFromUrl="1"
+                        imageFromUrlForOthers="@{order_data.imageUrl}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -123,7 +123,7 @@
                             android:id="@+id/amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Price"
+                            android:text="Cost"
                             android:fontFamily="@font/helvetica"
                             style="@style/WordColor"
                             android:textSize="@dimen/_14ssp" />

@@ -66,11 +66,14 @@
             android:id="@+id/action_admin_page_to_pendingOrders"
             app:destination="@id/pendingOrders" />
         <action
+            android:id="@+id/action_admin_page_to_profile_admin"
+            app:destination="@id/profile_admin" />
+        <action
             android:id="@+id/action_admin_page_to_banners_admin"
             app:destination="@id/banners_admin" />
         <action
-            android:id="@+id/action_admin_page_to_profile_admin"
-            app:destination="@id/profile_admin" />
+            android:id="@+id/action_admin_page_to_sent_or_cancel_orders"
+            app:destination="@id/sent_or_cancel_orders" />
     </fragment>
     <fragment
         android:id="@+id/userInfo_screen"
@@ -121,7 +124,9 @@
         android:id="@+id/pendingOrders"
         android:name="com.appdev.gadgetsgalaxy.pendingOrders"
         android:label="fragment_pending_orders"
-        tools:layout="@layout/fragment_pending_orders" />
+        tools:layout="@layout/fragment_pending_orders" >
+
+    </fragment>
     <fragment
         android:id="@+id/product_in_detail"
         android:name="com.appdev.gadgetsgalaxy.product_in_detail"
@@ -214,5 +219,14 @@
         android:name="com.appdev.gadgetsgalaxy.user_side_orders"
         android:label="fragment_user_side_orders"
         tools:layout="@layout/fragment_user_side_orders" />
+    <fragment
+        android:id="@+id/sent_or_cancel_orders"
+        android:name="com.appdev.gadgetsgalaxy.sent_or_cancel_orders"
+        android:label="fragment_sent_or_cancel_orders"
+        tools:layout="@layout/fragment_sent_or_cancel_orders" >
+        <argument
+            android:name="orderState"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

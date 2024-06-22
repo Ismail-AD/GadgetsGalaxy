@@ -61,11 +61,10 @@ public class home_page extends Fragment {
                              Bundle savedInstanceState) {
         homePageBinding = FragmentHomePageBinding.inflate(inflater, container, false);
 
-
         homePageBinding.gosrch.setOnClickListener(v -> {
             findNavController(this).navigate(R.id.action_home_page_to_product_showcase);
         });
-        product_image_adapter = new Product_image_adapter(productInfoList, this::navigateWithInfo);
+        product_image_adapter = new Product_image_adapter(filteredProductList, this::navigateWithInfo);
         homePageBinding.rvProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
         homePageBinding.rvProducts.setAdapter(product_image_adapter);
 
@@ -226,5 +225,6 @@ public class home_page extends Fragment {
                 }
             }
         }
+        product_image_adapter.notifyDataSetChanged();
     }
 }

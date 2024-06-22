@@ -18,10 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.appdev.gadgetsgalaxy.data.Category_info;
+import com.appdev.gadgetsgalaxy.data.Product_info;
 import com.appdev.gadgetsgalaxy.databinding.AddCategoryBinding;
 import com.appdev.gadgetsgalaxy.databinding.FragmentCategoryIndetailBinding;
+import com.appdev.gadgetsgalaxy.recyclerview.Product_image_adapter;
 import com.appdev.gadgetsgalaxy.utils.FirebaseUtil;
 import com.appdev.gadgetsgalaxy.utils.Utility;
 import com.bumptech.glide.Glide;
@@ -32,6 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -46,6 +51,11 @@ public class categoryIndetail extends Fragment {
     ValueEventListener OurCategoryListener;
     Dialog progressDialog;
     NavController navController;
+
+    Product_image_adapter product_image_adapter;
+
+    List<Product_info> productInfoList = new ArrayList<>();
+    ValueEventListener productsListener;
 
 
     @Override
@@ -72,6 +82,10 @@ public class categoryIndetail extends Fragment {
             }
         }
 
+        product_image_adapter = new Product_image_adapter(productInfoList, this::navigateWithInfo);
+        categoryInDetailBinding.rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        categoryInDetailBinding.rv.setAdapter(product_image_adapter);
+
         getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 uri -> {
                     if (uri != null) {
@@ -88,6 +102,7 @@ public class categoryIndetail extends Fragment {
                 });
 
         checkAuth();
+
         categoryInDetailBinding.floatingButton.setOnClickListener(view -> {
             bottomSheetDialog = new BottomSheetDialog(
                     requireContext());
@@ -173,6 +188,9 @@ public class categoryIndetail extends Fragment {
         return categoryInDetailBinding.getRoot();
     }
 
+    private void navigateWithInfo(Product_info productInfo) {
+    }
+
     private void checkAuth() {
         String userType = Utility.getUserTypeFromPrefs(categoryInDetailBinding.getRoot().getContext());
         if (!userType.trim().isEmpty()) {
@@ -247,38 +265,48 @@ public class categoryIndetail extends Fragment {
 
 
         categoryInDetailBinding.delBtn.setOnClickListener(v -> {
-            showProgressDialog();
-            FirebaseUtil.getFirebaseDatabase().getReference().child("Categories").child(categoryObject.getCatTitle().trim())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                // Category exists, proceed to delete it
-                                FirebaseUtil.getFirebaseDatabase().getReference().child("Categories").child(categoryObject.getCatTitle().trim())
-                                        .removeValue()
-                                        .addOnSuccessListener(aVoid -> {
-                                            dismissProgressDialog();
-                                            Toast.makeText(requireContext(), "Category deleted successfully", Toast.LENGTH_SHORT).show();
-                                            navController.popBackStack();
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            dismissProgressDialog();
-                                            Toast.makeText(requireContext(), "Failed to delete category", Toast.LENGTH_SHORT).show();
-                                        });
-                            } else {
-                                dismissProgressDialog();
-                                // Category does not exist
-                                Toast.makeText(requireContext(), "Category does not exist!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+            if (!productInfoList.isEmpty()) {
+                Toast.makeText(requireContext(), "You need to remove all products under this category first !", Toast.LENGTH_LONG).show();
+            } else {
+                showProgressDialog();
+                FirebaseUtil.getFirebaseDatabase().getReference().child("Categories").child(categoryObject.getCatTitle().trim()).removeValue().addOnSuccessListener(taskDone -> {
+                    dismissProgressDialog();
+                    Toast.makeText(requireContext(), "Category Deleted Successfully !", Toast.LENGTH_LONG).show();
+                    navController.popBackStack();
+                }).addOnFailureListener(failed -> {
+                    dismissProgressDialog();
+                    Toast.makeText(requireContext(), failed.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                });
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            dismissProgressDialog();
-                            Toast.makeText(requireContext(), "Error checking category existence", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            }
         });
+
+        productsListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                productInfoList.clear();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Product_info product = snapshot.getValue(Product_info.class);
+                    if (product != null) {
+                        productInfoList.add(product);
+                    }
+                }
+                changeVisibility();
+                product_image_adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        FirebaseUtil.getFirebaseDatabase().getReference().child("Products")
+                .orderByChild("category")
+                .equalTo(categoryObject.getCatTitle())
+                .addValueEventListener(productsListener);
+
 
         OurCategoryListener = new ValueEventListener() {
             @Override
@@ -299,6 +327,17 @@ public class categoryIndetail extends Fragment {
         categoryInDetailBinding.backBtn.setOnClickListener(view1 -> {
             findNavController(this).popBackStack();
         });
+    }
+
+    private void changeVisibility() {
+        categoryInDetailBinding.pg.setVisibility(View.GONE);
+        if (productInfoList.isEmpty()) {
+            categoryInDetailBinding.empty.setVisibility(View.VISIBLE);
+            categoryInDetailBinding.rv.setVisibility(View.GONE);
+        } else {
+            categoryInDetailBinding.rv.setVisibility(View.VISIBLE);
+            categoryInDetailBinding.empty.setVisibility(View.GONE);
+        }
     }
 
     private void setupCategoryListener(String categoryTitle) {

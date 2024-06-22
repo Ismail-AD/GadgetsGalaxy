@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     style="@style/Background"
     android:layout_height="match_parent"
-    tools:context=".pendingOrders">
+    tools:context=".sent_or_cancel_orders">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -41,13 +41,13 @@
         android:layout_below="@id/toolbar"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/order_empty"
+            android:id="@+id/orders_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:visibility="gone"
             android:layout_centerInParent="true"
-            android:text="No orders created yet !"
+            android:text="No orders processed yet !"
             android:textSize="@dimen/_16ssp"
             android:fontFamily="@font/helvetica"
             style="@style/WordColor" />

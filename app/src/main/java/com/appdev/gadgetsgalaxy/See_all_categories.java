@@ -100,6 +100,7 @@ public class See_all_categories extends Fragment {
         categoryItemListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                categoryInfoList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Category_info categoryInfo = dataSnapshot.getValue(Category_info.class);
                     categoryInfoList.add(categoryInfo);

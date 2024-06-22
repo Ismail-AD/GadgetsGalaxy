@@ -36,6 +36,7 @@ public class pendingOrders extends Fragment {
     Dialog progressDialog;
 
     ValueEventListener eventListener;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class pendingOrders extends Fragment {
         pendingOrdersBinding = FragmentPendingOrdersBinding.inflate(inflater, container, false);
         progressDialog = new Dialog(requireContext());
 
-        adapter = new Order_info_adapter_admin(allUserOrders,this::clickedOrder);
+        adapter = new Order_info_adapter_admin(allUserOrders, this::clickedOrder);
         pendingOrdersBinding.rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         pendingOrdersBinding.rv.setAdapter(adapter);
         pendingOrdersBinding.backBtn.setOnClickListener(view -> {
@@ -58,14 +59,20 @@ public class pendingOrders extends Fragment {
 
     private void clickedOrder(Pair<String, List<Order_info>> stringListPair) {
         showProgressDialog();
-        if(Objects.equals(stringListPair.first, "cancel")){
-            Order_info orderInfo = stringListPair.second.get(0);
-            DatabaseReference databaseReferenceOfOrders = FirebaseUtil.getFirebaseDatabase().getReference("pendingOrders").child(orderInfo.getUserId());
-            DatabaseReference databaseReferenceOfUser = FirebaseUtil.getFirebaseDatabase().getReference("orders").child(orderInfo.getUserId());
+        Order_info orderInfo = stringListPair.second.get(0);
+        String orderId = orderInfo.getOrderId();
+        DatabaseReference databaseReferenceOfOrders = FirebaseUtil.getFirebaseDatabase().getReference("pendingOrders").child(orderInfo.getUserId());
+        DatabaseReference databaseReferenceOfUser = FirebaseUtil.getFirebaseDatabase().getReference("orders").child(orderInfo.getUserId());
+        if (Objects.equals(stringListPair.first, "cancel")) {
 
-            DatabaseReference databaseReference = FirebaseUtil.getFirebaseDatabase().getReference("cancelOrders").child(orderInfo.getUserId());
-            String orderId = orderInfo.getOrderId();
-            databaseReference.child(orderId).setValue(stringListPair.second).addOnSuccessListener(aVoid -> {                 databaseReferenceOfUser.child(orderId).addListenerForSingleValueEvent(new ValueEventListener() {
+            DatabaseReference databaseReference = FirebaseUtil.getFirebaseDatabase().getReference("cancelOrders");
+            List<Order_info> updatedOrderList = new ArrayList<>();
+            for (Order_info order : stringListPair.second) {
+                order.setStatus("CANCELED");
+                updatedOrderList.add(order);
+            }
+            databaseReference.child(orderId).setValue(updatedOrderList).addOnSuccessListener(aVoid -> {
+                        databaseReferenceOfUser.child(orderId).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
@@ -89,17 +96,6 @@ public class pendingOrders extends Fragment {
                             dismissProgressDialog();
                             if (task.isSuccessful()) {
                                 Toast.makeText(requireContext(), "Order has been Canceled !", Toast.LENGTH_SHORT).show();
-                                for (List<Order_info> userOrderList : allUserOrders) {
-                                    for (Order_info order : userOrderList) {
-                                        if (order.getOrderId().equals(orderId)) {
-                                            userOrderList.remove(order);
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                // Notify the adapter about the data change
-                                adapter.notifyDataSetChanged();
                             }
                         });
                     })
@@ -107,8 +103,45 @@ public class pendingOrders extends Fragment {
                         dismissProgressDialog();
                         Toast.makeText(requireContext(), "Failed to cancel order.", Toast.LENGTH_SHORT).show();
                     });
-        } else if(Objects.equals(stringListPair.first, "accept")){
+        } else if (Objects.equals(stringListPair.first, "send")) {
+            DatabaseReference databaseReference = FirebaseUtil.getFirebaseDatabase().getReference("sentOrders");
+            List<Order_info> updatedNewOrderList = new ArrayList<>();
+            for (Order_info order : stringListPair.second) {
+                order.setStatus("SENT");
+                updatedNewOrderList.add(order);
+            }
+            databaseReference.child(orderId).setValue(updatedNewOrderList).addOnSuccessListener(aVoid -> {
+                        databaseReferenceOfUser.child(orderId).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot orderSnapshot : dataSnapshot.getChildren()) {
+                                        Order_info order = orderSnapshot.getValue(Order_info.class);
+                                        if (order != null) {
+                                            orderSnapshot.getRef().child("status").setValue("SENT");
+                                        }
+                                    }
+                                } else {
 
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle onCancelled event
+                            }
+                        });
+                        databaseReferenceOfOrders.child(orderId).removeValue().addOnCompleteListener(task -> {
+                            dismissProgressDialog();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(requireContext(), "Order has been Sent !", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        dismissProgressDialog();
+                        Toast.makeText(requireContext(), "Failed to send order.", Toast.LENGTH_SHORT).show();
+                    });
         }
     }
 
@@ -134,11 +167,10 @@ public class pendingOrders extends Fragment {
                         if (!orderInfoList.isEmpty()) {
                             allUserOrders.add(orderInfoList);
                         }
-                        changeVisibility();
                     }
                 }
-
                 adapter.notifyDataSetChanged();
+                changeVisibility();
             }
 
             @Override
@@ -148,8 +180,9 @@ public class pendingOrders extends Fragment {
         };
 
         FirebaseUtil.getFirebaseDatabase().getReference().child("pendingOrders")
-                .addListenerForSingleValueEvent(eventListener);
+                .addValueEventListener(eventListener);
     }
+
     public void showProgressDialog() {
         progressDialog.setContentView(R.layout.progress_bar);
         Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
@@ -165,7 +198,13 @@ public class pendingOrders extends Fragment {
 
     private void changeVisibility() {
         pendingOrdersBinding.pg.setVisibility(View.GONE);
-        pendingOrdersBinding.rv.setVisibility(View.VISIBLE);
+        if (allUserOrders.isEmpty()) {
+            pendingOrdersBinding.rv.setVisibility(View.GONE);
+            pendingOrdersBinding.orderEmpty.setVisibility(View.VISIBLE);
+        } else {
+            pendingOrdersBinding.rv.setVisibility(View.VISIBLE);
+            pendingOrdersBinding.orderEmpty.setVisibility(View.GONE);
+        }
     }
 }
 

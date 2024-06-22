@@ -1,5 +1,6 @@
 package com.appdev.gadgetsgalaxy;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
 import static com.appdev.gadgetsgalaxy.utils.Utility.PUBLISHABLE;
 
 import android.app.Dialog;
@@ -90,6 +91,10 @@ public class checkout_fragment extends Fragment {
                 .getReference()
                 .child("Cart")
                 .child(FirebaseUtil.getFirebaseAuth().getUid());
+        binding.backBtn.setOnClickListener(v->{
+            findNavController(this).popBackStack();
+        });
+
 
         // STRIPE SETUP
         PaymentConfiguration.init(requireContext(), PUBLISHABLE);
@@ -207,7 +212,7 @@ public class checkout_fragment extends Fragment {
                         Toast.makeText(requireContext(), "Your Order has been placed", Toast.LENGTH_SHORT).show();
                         cartRef.removeValue().addOnCompleteListener(taskad -> {
                             if (taskad.isSuccessful()) {
-
+                                  findNavController(this).popBackStack();
                             }
                         });
                     });
