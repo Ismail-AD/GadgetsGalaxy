@@ -1,6 +1,4 @@
-
-https://github.com/Ismail-AD/GadgetsGalaxy/assets/99780212/0d3cff22-5d35-4366-8295-021c3747eae1
-<h1 align="center">Wallpaper Wizard</h1>
+<h1 align="center">Gadgets Galaxy</h1>
 </br>
 <p align="center">
   <img alt="API" src="https://img.shields.io/badge/Api%2021+-50f270?logo=android&logoColor=black&style=for-the-badge"/></a>
@@ -11,12 +9,7 @@ https://github.com/Ismail-AD/GadgetsGalaxy/assets/99780212/0d3cff22-5d35-4366-82
   </p>
 
 # Demo
-
-https://github.com/Ismail-AD/GadgetsGalaxy/assets/99780212/59543a8a-5af3-4be3-953e-18e472ae9e47  
-
-
-
-
+https://github.com/Ismail-AD/GadgetsGalaxy/assets/99780212/0d3cff22-5d35-4366-8295-021c3747eae1
 
 # Features ✨
 
