@@ -9,7 +9,7 @@
   </p>
 
 # Demo
-https://github.com/Ismail-AD/GadgetsGalaxy/assets/99780212/0d3cff22-5d35-4366-8295-021c3747eae1
+https://github.com/Ismail-AD/GadgetsGalaxy/assets/99780212/0d3cff22-5d35-4366-8295-021c3747eae1    https://github.com/Ismail-AD/GadgetsGalaxy/assets/99780212/6731b983-7093-4a45-9235-41eadb8de8a3
 
 # Features ✨
 
